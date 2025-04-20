@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Edit, Heart } from 'lucide-react';
+import { ArrowLeft, Edit, Heart, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -9,12 +9,14 @@ import { useNutriTrack } from '@/hooks/useNutriTrack';
 import Layout from '@/components/Layout';
 import MacroBar from '@/components/MacroBar';
 import { MOCK_FOOD_DATABASE } from '@/components/FoodDatabase';
+import { toast } from '@/components/ui/use-toast';
 
 export function FoodDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { todayData } = useNutriTrack();
+  const { todayData, addFoodEntry } = useNutriTrack();
   const [healthScore] = useState(7);
+  const [quantity, setQuantity] = useState(1);
   
   // Find the food item across all meal types or in the food database
   const findFood = () => {
@@ -34,6 +36,34 @@ export function FoodDetail() {
   };
   
   const food = findFood();
+
+  useEffect(() => {
+    // Log some debug info to help diagnose the issue
+    console.log("ID from params:", id);
+    console.log("Found food:", food);
+    console.log("MOCK_FOOD_DATABASE length:", MOCK_FOOD_DATABASE.length);
+    console.log("First few items in database:", MOCK_FOOD_DATABASE.slice(0, 3));
+  }, [id]);
+  
+  const handleAddToMeal = (mealType: 'breakfast' | 'lunch' | 'dinner' | 'snack') => {
+    if (food) {
+      const newFoodEntry = {
+        ...food,
+        quantity,
+        mealType
+      };
+      addFoodEntry(newFoodEntry);
+      toast({
+        title: "Added to meal",
+        description: `${food.name} added to your ${mealType}`
+      });
+      navigate('/dashboard');
+    }
+  };
+  
+  const handleQuantityChange = (change: number) => {
+    setQuantity(prev => Math.max(1, prev + change));
+  };
   
   if (!food) {
     return (
@@ -41,17 +71,24 @@ export function FoodDetail() {
         <div className="text-center p-8">
           <h2 className="text-xl font-semibold mb-2">Food Not Found</h2>
           <p className="text-gray-500 mb-4">The requested food item could not be found.</p>
-          <Button onClick={() => navigate('/')}>Return to Dashboard</Button>
+          <p className="text-sm text-gray-400 mb-4">ID: {id}</p>
+          <Button onClick={() => navigate('/add-food')}>Search for Food</Button>
         </div>
       </Layout>
     );
   }
   
+  // Calculate adjusted nutritional values based on quantity
+  const adjustedCalories = Math.round(food.calories * quantity);
+  const adjustedProtein = +(food.protein * quantity).toFixed(1);
+  const adjustedCarbs = +(food.carbs * quantity).toFixed(1);
+  const adjustedFat = +(food.fat * quantity).toFixed(1);
+  
   return (
     <Layout>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
+          <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
             <ArrowLeft size={20} />
           </Button>
           <h1 className="text-xl font-semibold">{food.name}</h1>
@@ -62,7 +99,7 @@ export function FoodDetail() {
         
         <div className="relative rounded-lg overflow-hidden bg-gray-100 h-48 flex items-center justify-center">
           <img 
-            src="https://images.unsplash.com/photo-1582562124811-c09040d0a901" 
+            src={`https://source.unsplash.com/featured/?${encodeURIComponent(food.name)},food`}
             alt={food.name} 
             className="w-full h-full object-cover"
           />
@@ -73,7 +110,7 @@ export function FoodDetail() {
             <div className="space-y-1">
               <p className="text-sm text-gray-500">Calories</p>
               <div className="flex items-end">
-                <span className="text-2xl font-semibold">{food.calories}</span>
+                <span className="text-2xl font-semibold">{adjustedCalories}</span>
                 <span className="text-sm text-gray-400 ml-1">kcal</span>
               </div>
             </div>
@@ -81,9 +118,23 @@ export function FoodDetail() {
             <div className="space-y-1">
               <p className="text-sm text-gray-500">Portion</p>
               <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm" className="h-8 w-8 p-0">-</Button>
-                <span className="text-lg">{food.quantity}</span>
-                <Button variant="outline" size="sm" className="h-8 w-8 p-0">+</Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="h-8 w-8 p-0" 
+                  onClick={() => handleQuantityChange(-1)}
+                >
+                  <Minus size={16} />
+                </Button>
+                <span className="text-lg">{quantity}</span>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="h-8 w-8 p-0"
+                  onClick={() => handleQuantityChange(1)}
+                >
+                  <Plus size={16} />
+                </Button>
               </div>
             </div>
           </div>
@@ -97,7 +148,7 @@ export function FoodDetail() {
                 <span>Protein</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="font-medium">{food.protein}g</span>
+                <span className="font-medium">{adjustedProtein}g</span>
                 <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
                   <Edit size={12} />
                 </Button>
@@ -110,7 +161,7 @@ export function FoodDetail() {
                 <span>Fat</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="font-medium">{food.fat}g</span>
+                <span className="font-medium">{adjustedFat}g</span>
                 <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
                   <Edit size={12} />
                 </Button>
@@ -123,7 +174,7 @@ export function FoodDetail() {
                 <span>Carbs</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="font-medium">{food.carbs}g</span>
+                <span className="font-medium">{adjustedCarbs}g</span>
                 <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
                   <Edit size={12} />
                 </Button>
@@ -135,6 +186,16 @@ export function FoodDetail() {
           
           <div className="space-y-2">
             <div className="flex justify-between">
+              <span className="text-gray-500">Serving Size</span>
+              <span className="font-medium">{food.servingSize}</span>
+            </div>
+            
+            <div className="flex justify-between">
+              <span className="text-gray-500">Category</span>
+              <span className="font-medium">{food.category || "Uncategorized"}</span>
+            </div>
+            
+            <div className="flex justify-between">
               <span className="text-gray-500">Health Score</span>
               <div className="flex items-center space-x-1">
                 <div className="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center">
@@ -143,8 +204,6 @@ export function FoodDetail() {
                 <span className="font-semibold">{healthScore}/10</span>
               </div>
             </div>
-            
-            <Button variant="outline" className="w-full">Fix Results</Button>
           </div>
         </Card>
         
@@ -154,24 +213,42 @@ export function FoodDetail() {
             <div className="space-y-3">
               <MacroBar 
                 label="Protein" 
-                value={food.protein} 
+                value={adjustedProtein} 
                 max={50}
                 color="bg-red-400" 
               />
               <MacroBar 
                 label="Carbs" 
-                value={food.carbs} 
+                value={adjustedCarbs} 
                 max={200}
                 color="bg-blue-400" 
               />
               <MacroBar 
                 label="Fat" 
-                value={food.fat} 
+                value={adjustedFat} 
                 max={70}
                 color="bg-yellow-400" 
               />
             </div>
           </Card>
+        </div>
+        
+        <div className="space-y-2 pt-2">
+          <h3 className="text-lg font-medium">Add to Today</h3>
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" onClick={() => handleAddToMeal('breakfast')}>
+              Add to Breakfast
+            </Button>
+            <Button variant="outline" onClick={() => handleAddToMeal('lunch')}>
+              Add to Lunch
+            </Button>
+            <Button variant="outline" onClick={() => handleAddToMeal('dinner')}>
+              Add to Dinner
+            </Button>
+            <Button variant="outline" onClick={() => handleAddToMeal('snack')}>
+              Add as Snack
+            </Button>
+          </div>
         </div>
       </div>
     </Layout>
