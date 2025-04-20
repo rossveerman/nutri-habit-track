@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Edit, Heart, Plus, Minus } from 'lucide-react';
@@ -12,7 +11,8 @@ import { MOCK_FOOD_DATABASE } from '@/components/FoodDatabase';
 import { toast } from '@/components/ui/use-toast';
 
 export function FoodDetail() {
-  const { id } = useParams();
+  const params = useParams<{ id: string }>();
+  const id = params.id; // Explicitly get the id from params
   const navigate = useNavigate();
   const { todayData, addFoodEntry } = useNutriTrack();
   const [healthScore] = useState(7);
@@ -20,18 +20,27 @@ export function FoodDetail() {
   
   // Find the food item across all meal types or in the food database
   const findFood = () => {
+    console.log("Looking for food with ID:", id);
+    
     // First check in user's meals
     for (const mealType of Object.keys(todayData.meals)) {
       const food = todayData.meals[mealType as keyof typeof todayData.meals].find(
         item => item.id === id
       );
-      if (food) return food;
+      if (food) {
+        console.log("Found food in meals:", food);
+        return food;
+      }
     }
     
     // If not found in meals, check the food database
     const databaseFood = MOCK_FOOD_DATABASE.find(item => item.id === id);
-    if (databaseFood) return databaseFood;
+    if (databaseFood) {
+      console.log("Found food in database:", databaseFood);
+      return databaseFood;
+    }
     
+    console.log("No food found with ID:", id);
     return null;
   };
   
@@ -42,8 +51,8 @@ export function FoodDetail() {
     console.log("ID from params:", id);
     console.log("Found food:", food);
     console.log("MOCK_FOOD_DATABASE length:", MOCK_FOOD_DATABASE.length);
-    console.log("First few items in database:", MOCK_FOOD_DATABASE.slice(0, 3));
-  }, [id]);
+    console.log("All database items:", MOCK_FOOD_DATABASE);
+  }, [id, food]);
   
   const handleAddToMeal = (mealType: 'breakfast' | 'lunch' | 'dinner' | 'snack') => {
     if (food) {
