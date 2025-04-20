@@ -6,9 +6,14 @@ import FoodEntryForm from '@/components/FoodEntryForm';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import SearchFullFoodDialog from '@/components/SearchFullFoodDialog';
+import { FoodFull } from '@/components/FoodDatabaseFull';
 
 export function AddFood() {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isSearchDialogOpen, setIsSearchDialogOpen] = useState(false);
+  const [prefillFood, setPrefillFood] = useState<any | null>(null);
+
   const { addFoodEntry } = useNutriTrack();
   const navigate = useNavigate();
   
@@ -28,17 +33,50 @@ export function AddFood() {
     navigate('/');
   };
 
+  // New: handle food selection from database search and prefill the custom food form
+  const handleSelectDbFood = (food: FoodFull) => {
+    setPrefillFood({
+      name: food.name,
+      calories: food.calories,
+      protein: food.protein,
+      carbs: food.carbs,
+      fat: food.fat,
+      servingSize: food.serving,
+      quantity: 1,
+      mealType: 'breakfast',
+    });
+    setIsFormOpen(true);
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">Add Food</h2>
       
-      <Button 
-        onClick={() => setIsFormOpen(true)} 
-        className="w-full bg-nutritrack-teal hover:bg-nutritrack-teal/90 text-white h-12"
-      >
-        <Plus className="mr-2" size={18} />
-        Add Custom Food
-      </Button>
+      <div className="flex flex-col md:flex-row gap-2">
+        <Button 
+          onClick={() => {
+            setPrefillFood(null);
+            setIsFormOpen(true);
+          }} 
+          className="w-full bg-nutritrack-teal hover:bg-nutritrack-teal/90 text-white h-12"
+        >
+          <Plus className="mr-2" size={18} />
+          Add Custom Food
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full h-12"
+          onClick={() => setIsSearchDialogOpen(true)}
+        >
+          Search food database
+        </Button>
+      </div>
+
+      <SearchFullFoodDialog
+        open={isSearchDialogOpen}
+        onClose={() => setIsSearchDialogOpen(false)}
+        onSelect={handleSelectDbFood}
+      />
       
       <div className="grid grid-cols-2 gap-4">
         <Card>
@@ -140,10 +178,13 @@ export function AddFood() {
         onAddFood={(food) => {
           addFoodEntry(food);
           navigate('/');
-        }} 
+        }}
+        // Prefill form if food was selected from the search
+        {...(prefillFood ? { key: prefillFood.name, defaultValues: prefillFood } : {})}
       />
     </div>
   );
 }
 
 export default AddFood;
+
