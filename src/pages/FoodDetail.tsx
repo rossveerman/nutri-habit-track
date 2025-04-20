@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useNutriTrack } from '@/hooks/useNutriTrack';
 import Layout from '@/components/Layout';
 import MacroBar from '@/components/MacroBar';
+import { MOCK_FOOD_DATABASE } from '@/components/FoodDatabase';
 
 export function FoodDetail() {
   const { id } = useParams();
@@ -15,14 +16,20 @@ export function FoodDetail() {
   const { todayData } = useNutriTrack();
   const [healthScore] = useState(7);
   
-  // Find the food item across all meal types
+  // Find the food item across all meal types or in the food database
   const findFood = () => {
+    // First check in user's meals
     for (const mealType of Object.keys(todayData.meals)) {
       const food = todayData.meals[mealType as keyof typeof todayData.meals].find(
         item => item.id === id
       );
       if (food) return food;
     }
+    
+    // If not found in meals, check the food database
+    const databaseFood = MOCK_FOOD_DATABASE.find(item => item.id === id);
+    if (databaseFood) return databaseFood;
+    
     return null;
   };
   
