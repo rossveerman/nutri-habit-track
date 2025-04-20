@@ -1,9 +1,12 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Plus, User } from 'lucide-react';
+
 interface LayoutProps {
   children: React.ReactNode;
 }
+
 export function Layout({
   children
 }: LayoutProps) {
@@ -12,7 +15,7 @@ export function Layout({
       <header className="bg-white border-b p-4">
         <div className="max-w-md mx-auto flex justify-between items-center">
           <Link to="/" className="text-xl font-bold text-NutrifAI-teal">
-            NutriTrack
+            NutrifAI
           </Link>
           <span className="text-sm text-nutritrack-gray">
             {new Date().toLocaleDateString('en-US', {
@@ -50,4 +53,6 @@ export function Layout({
       </footer>
     </div>;
 }
+
 export default Layout;
+
