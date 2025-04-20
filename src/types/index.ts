@@ -10,6 +10,7 @@ export interface Food {
   quantity: number;
   mealType: MealType;
   timestamp: string;
+  category?: string; // Add category field as optional
 }
 
 export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'snack';

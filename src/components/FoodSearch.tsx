@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo } from "react";
-import { Search, QrCodeScanner, Mic, Add, History, Close } from "lucide-react";
+import { Search, QrCode, Mic, Plus, X, ChevronRight, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import CategoryTabs from "./CategoryTabs";
@@ -220,7 +220,7 @@ const FoodSearch: React.FC = () => {
               tabIndex={0}
               type="button"
             >
-              <Close size={18} />
+              <X size={18} />
             </button>
           )}
         </div>
@@ -231,7 +231,7 @@ const FoodSearch: React.FC = () => {
             aria-label="Scan barcode"
             onClick={handleScanBarcode}
           >
-            <QrCodeScanner />
+            <QrCode />
           </Button>
           <Button
             variant="outline"
@@ -266,7 +266,7 @@ const FoodSearch: React.FC = () => {
           className="rounded-full px-6 py-4 bg-[#9b87f5] hover:bg-[#826dcf] text-white shadow-lg gap-2"
           onClick={handleAddCustom}
         >
-          <Add />
+          <Plus />
           <span className="font-semibold">Add Custom Food</span>
         </Button>
       </div>
@@ -275,4 +275,3 @@ const FoodSearch: React.FC = () => {
 };
 
 export default FoodSearch;
-
