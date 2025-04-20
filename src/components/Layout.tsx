@@ -14,24 +14,42 @@ export function Layout({
   const location = useLocation();
   const isMobile = useIsMobile();
 
-  // Tablet and desktop layout
+  // Check for large tablets (iPad Pro, etc.)
+  const isLargeTablet = !isMobile && window.innerWidth >= 1024;
+
+  // Tablet and desktop layout with enhanced responsiveness
   if (!isMobile) {
     return (
       <div className="min-h-screen bg-gray-50 flex">
-        {/* Sidebar for tablet/desktop */}
-        <div className="w-64 bg-white border-r shadow-sm flex flex-col">
+        {/* Sidebar for tablet/desktop with adaptive width */}
+        <div className={`${isLargeTablet ? 'w-72' : 'w-64'} bg-white border-r shadow-sm flex flex-col`}>
           <div className="p-4 border-b">
-            <Link to="/" className="text-xl font-bold text-nutritrack-teal">
+            <Link to="/" className={`${isLargeTablet ? 'text-2xl' : 'text-xl'} font-bold text-nutritrack-teal`}>
               NutrifAI
             </Link>
           </div>
           
           <nav className="flex-1 px-3 py-4">
             <div className="space-y-1">
-              <NavLink to="/" active={location.pathname === '/'} icon={<Home size={20} />} label="Dashboard" />
-              <NavLink to="/add-food" active={location.pathname === '/add-food'} icon={<Plus size={20} />} label="Add Food" />
-              <NavLink to="/camera" active={location.pathname === '/camera'} icon={<Camera size={20} />} label="Scan Food" />
-              <NavLink to="/profile" active={location.pathname === '/profile'} icon={<User size={20} />} label="Profile" />
+              <NavLink to="/" active={location.pathname === '/'} icon={<Home size={isLargeTablet ? 24 : 20} />} label="Dashboard" />
+              <NavLink to="/add-food" active={location.pathname === '/add-food'} icon={<Plus size={isLargeTablet ? 24 : 20} />} label="Add Food" />
+              <NavLink to="/camera" active={location.pathname === '/camera'} icon={<Camera size={isLargeTablet ? 24 : 20} />} label="Scan Food" />
+              <NavLink to="/profile" active={location.pathname === '/profile'} icon={<User size={isLargeTablet ? 24 : 20} />} label="Profile" />
+              
+              {/* Additional navigation links for large tablets */}
+              {isLargeTablet && (
+                <div className="pt-4 mt-4 border-t border-gray-100">
+                  <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    Quick Access
+                  </p>
+                  <NavLink 
+                    to="/auth" 
+                    active={location.pathname === '/auth'} 
+                    icon={<User size={24} />} 
+                    label="Admin Access" 
+                  />
+                </div>
+              )}
             </div>
           </nav>
           
@@ -44,10 +62,12 @@ export function Layout({
           </div>
         </div>
         
-        {/* Main content */}
+        {/* Main content with adaptive padding and max-width */}
         <div className="flex-1 flex flex-col">
           <header className="bg-white border-b p-4 flex items-center justify-between">
-            <h1 className="text-xl font-semibold">{getTitle(location.pathname)}</h1>
+            <h1 className={`${isLargeTablet ? 'text-2xl' : 'text-xl'} font-semibold`}>
+              {getTitle(location.pathname)}
+            </h1>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <Search className="h-4 w-4 text-gray-400" />
@@ -55,13 +75,15 @@ export function Layout({
               <input 
                 type="search" 
                 placeholder="Search foods..." 
-                className="pl-10 pr-4 py-2 border rounded-full bg-gray-50 text-sm focus:ring-1 focus:ring-nutritrack-teal focus:border-nutritrack-teal"
+                className={`pl-10 pr-4 py-2 border rounded-full bg-gray-50 text-sm focus:ring-1 focus:ring-nutritrack-teal focus:border-nutritrack-teal ${
+                  isLargeTablet ? 'w-72' : 'w-64'
+                }`}
               />
             </div>
           </header>
           
-          <main className="flex-1 overflow-auto p-6">
-            <div className="max-w-4xl mx-auto">
+          <main className={`flex-1 overflow-auto ${isLargeTablet ? 'p-8' : 'p-6'}`}>
+            <div className={`mx-auto ${isLargeTablet ? 'max-w-6xl' : 'max-w-4xl'}`}>
               {children}
             </div>
           </main>
@@ -70,7 +92,7 @@ export function Layout({
     );
   }
   
-  // Mobile layout (original)
+  // Enhanced mobile layout with optimizations for different phone sizes
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b p-4">
@@ -88,11 +110,13 @@ export function Layout({
         </div>
       </header>
       
-      <main className="flex-1 max-w-md mx-auto w-full p-4">
+      {/* Mobile main content with adaptive max-width based on screen size */}
+      <main className="flex-1 mx-auto w-full p-4" style={{ maxWidth: 'min(100%, 540px)' }}>
         {children}
       </main>
       
-      <footer className="bg-white border-t p-4">
+      {/* Responsive mobile navigation footer */}
+      <footer className="bg-white border-t p-4 safe-area-bottom">
         <nav className="max-w-md mx-auto flex justify-between">
           <Link to="/" className={`flex flex-col items-center p-2 ${location.pathname === '/' ? 'text-nutritrack-teal' : 'text-gray-400'}`}>
             <Home size={22} />
@@ -104,6 +128,11 @@ export function Layout({
               <Plus size={22} className="text-white" />
             </div>
             <span className="text-xs mt-1">Add</span>
+          </Link>
+          
+          <Link to="/camera" className={`flex flex-col items-center p-2 ${location.pathname === '/camera' ? 'text-nutritrack-teal' : 'text-gray-400'}`}>
+            <Camera size={22} />
+            <span className="text-xs mt-1">Scan</span>
           </Link>
           
           <Link to="/profile" className={`flex flex-col items-center p-2 ${location.pathname === '/profile' ? 'text-nutritrack-teal' : 'text-gray-400'}`}>
@@ -118,10 +147,12 @@ export function Layout({
 
 // Helper component for tablet/desktop navigation links
 function NavLink({ to, active, icon, label }: { to: string; active: boolean; icon: React.ReactNode; label: string }) {
+  const isLargeTablet = window.innerWidth >= 1024;
+  
   return (
     <Link
       to={to}
-      className={`flex items-center px-3 py-2 rounded-lg text-sm ${
+      className={`flex items-center px-3 py-2 rounded-lg ${isLargeTablet ? 'text-base' : 'text-sm'} ${
         active
           ? "bg-nutritrack-teal text-white"
           : "text-gray-600 hover:bg-gray-100"
