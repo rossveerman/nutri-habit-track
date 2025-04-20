@@ -1,16 +1,19 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, X, Image, Check } from 'lucide-react';
+import { Camera, X, Image, Check, FlashlightOff, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { FlashlightOff } from 'lucide-react';  // Corrected import
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function CameraPage() {
   const [isScanning, setIsScanning] = useState(false);
   const [detectedFood, setDetectedFood] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [flashActive, setFlashActive] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   
   // Simulate camera scanning effect
   useEffect(() => {
@@ -71,10 +74,17 @@ export function CameraPage() {
     }
   };
 
+  const toggleFlash = () => {
+    setFlashActive(!flashActive);
+    toast({
+      description: flashActive ? "Flash turned off" : "Flash turned on",
+    });
+  };
+
   return (
     <div className="fixed inset-0 bg-black flex flex-col">
-      {/* Camera header */}
-      <div className="p-4 flex justify-between items-center">
+      {/* Camera header - responsive for tablets */}
+      <div className="p-4 md:p-6 flex justify-between items-center">
         <Button 
           variant="ghost" 
           size="icon"
@@ -84,63 +94,112 @@ export function CameraPage() {
           <X size={24} />
         </Button>
         
-        <h2 className="text-white text-lg font-medium">Scan Food</h2>
+        <h2 className="text-white text-lg md:text-xl font-medium">Scan Food</h2>
         
-        <Button variant="ghost" size="icon" className="text-white">
-          <FlashlightOff size={24} />  {/* Corrected icon name */}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-white"
+            onClick={toggleFlash}
+          >
+            <FlashlightOff size={24} className={flashActive ? "text-yellow-400" : "text-white"} />
+          </Button>
+          
+          {!isMobile && (
+            <Button variant="ghost" size="icon" className="text-white">
+              <Settings size={24} />
+            </Button>
+          )}
+        </div>
       </div>
       
-      {/* Camera viewport */}
+      {/* Camera viewport - optimized for different screen sizes */}
       <div className="flex-1 relative flex items-center justify-center">
+        {/* Camera composition guides for tablets */}
+        {!isMobile && !isScanning && !detectedFood && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="border-2 border-white/20 w-[85%] h-[85%] rounded-lg"></div>
+            <div className="absolute inset-0 grid grid-cols-3 grid-rows-3">
+              <div className="border-r border-b border-white/10"></div>
+              <div className="border-r border-l border-b border-white/10"></div>
+              <div className="border-l border-b border-white/10"></div>
+              <div className="border-r border-b border-t border-white/10"></div>
+              <div className="border-r border-l border-b border-t border-white/10"></div>
+              <div className="border-l border-b border-t border-white/10"></div>
+              <div className="border-r border-t border-white/10"></div>
+              <div className="border-r border-l border-t border-white/10"></div>
+              <div className="border-l border-t border-white/10"></div>
+            </div>
+          </div>
+        )}
+
         {/* Simulated camera view */}
         <div className={`w-full h-full bg-gray-900 flex items-center justify-center ${isScanning ? 'animate-pulse' : ''}`}>
           <Image size={64} className="text-gray-600" />
         </div>
         
-        {/* Scanning overlay */}
+        {/* Scanning overlay with adaptive size */}
         {isScanning && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-64 h-64 border-2 border-nutritrack-teal rounded-lg animate-pulse flex items-center justify-center">
-              <p className="text-white text-sm animate-bounce">Scanning...</p>
+            <div className="w-64 h-64 md:w-80 md:h-80 border-2 border-nutritrack-teal rounded-lg animate-pulse flex items-center justify-center">
+              <div className="bg-black/50 px-4 py-2 rounded-full">
+                <p className="text-white text-sm md:text-base animate-bounce">Scanning...</p>
+              </div>
             </div>
           </div>
         )}
         
-        {/* Countdown overlay */}
+        {/* Countdown overlay - larger on tablets */}
         {countdown !== null && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <div className="w-24 h-24 rounded-full bg-nutritrack-teal flex items-center justify-center">
-              <p className="text-white text-4xl font-bold">{countdown}</p>
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-nutritrack-teal flex items-center justify-center">
+              <p className="text-white text-4xl md:text-5xl font-bold">{countdown}</p>
             </div>
           </div>
         )}
         
-        {/* Detection results */}
+        {/* Detection results - adaptive layout for tablets */}
         {detectedFood && !isScanning && (
-          <div className="absolute inset-x-0 bottom-0 bg-black/70 p-4">
-            <div className="bg-white rounded-lg p-4">
-              <h3 className="font-medium text-lg mb-2">{detectedFood}</h3>
+          <div className="absolute inset-x-0 bottom-0 bg-black/70 p-4 md:p-6">
+            <div className="bg-white rounded-lg p-4 md:p-6 max-w-2xl mx-auto">
+              <h3 className="font-medium text-lg md:text-xl mb-2">{detectedFood}</h3>
+              
               <div className="grid grid-cols-4 gap-3 mb-4">
                 <div className="text-center">
-                  <p className="text-xs text-gray-500">Calories</p>
-                  <p className="font-medium">245</p>
+                  <p className="text-xs md:text-sm text-gray-500">Calories</p>
+                  <p className="font-medium md:text-lg">245</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-xs text-gray-500">Protein</p>
-                  <p className="font-medium">12g</p>
+                  <p className="text-xs md:text-sm text-gray-500">Protein</p>
+                  <p className="font-medium md:text-lg">12g</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-xs text-gray-500">Carbs</p>
-                  <p className="font-medium">30g</p>
+                  <p className="text-xs md:text-sm text-gray-500">Carbs</p>
+                  <p className="font-medium md:text-lg">30g</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-xs text-gray-500">Fat</p>
-                  <p className="font-medium">8g</p>
+                  <p className="text-xs md:text-sm text-gray-500">Fat</p>
+                  <p className="font-medium md:text-lg">8g</p>
                 </div>
               </div>
+
+              {/* For tablets, we add more detailed nutrition info */}
+              {!isMobile && (
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="bg-gray-50 p-3 rounded">
+                    <div className="text-xs text-gray-500">Fiber</div>
+                    <div>4g</div>
+                  </div>
+                  <div className="bg-gray-50 p-3 rounded">
+                    <div className="text-xs text-gray-500">Sugar</div>
+                    <div>18g</div>
+                  </div>
+                </div>
+              )}
+              
               <Button 
-                className="w-full bg-nutritrack-teal hover:bg-nutritrack-teal/90"
+                className="w-full bg-nutritrack-teal hover:bg-nutritrack-teal/90 text-lg py-6"
                 onClick={handleConfirmFood}
               >
                 <Check size={16} className="mr-2" />
@@ -151,15 +210,15 @@ export function CameraPage() {
         )}
       </div>
       
-      {/* Camera controls */}
-      <div className="p-6 bg-black flex justify-center">
+      {/* Camera controls - adaptive for tablets */}
+      <div className="p-6 md:p-8 bg-black flex justify-center">
         {!isScanning && !detectedFood && (
           <Button 
             variant="outline" 
-            className="w-16 h-16 rounded-full border-4 border-white text-white hover:bg-white/20"
+            className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white text-white hover:bg-white/20"
             onClick={handleStartScan}
           >
-            <Camera size={30} />
+            <Camera size={isMobile ? 30 : 36} />
           </Button>
         )}
       </div>
