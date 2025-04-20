@@ -15,8 +15,7 @@ import FoodAddToMeal from "./FoodAddToMeal";
 import { findFoodById } from "./findFoodById";
 
 export default function FoodDetail() {
-  const params = useParams<{ id: string }>();
-  const id = params.id;
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { todayData, addFoodEntry } = useNutriTrack();
   const [healthScore] = useState(7);
