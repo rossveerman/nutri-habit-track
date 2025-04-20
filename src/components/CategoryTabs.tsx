@@ -1,38 +1,33 @@
 
 import React from "react";
 
-interface Props {
+type CategoryTabsProps = {
   categories: string[];
   selected: string;
   setSelected: (cat: string) => void;
-}
+};
 
-// Responsive pill-style tabs for category filtering
-const CategoryTabs: React.FC<Props> = ({
-  categories,
-  selected,
-  setSelected,
-}) => (
-  <div className="flex gap-2 overflow-x-auto pb-1 hide-scrollbar" tabIndex={-1}>
-    {categories.map((cat) => (
-      <button
-        key={cat}
-        className={`px-4 py-2 rounded-full transition 
-          text-sm font-medium 
-          ${selected === cat
-            ? "bg-[#9b87f5] text-white shadow"
-            : "bg-white text-neutral-600 hover:bg-purple-50 border border-neutral-200"
+const CategoryTabs: React.FC<CategoryTabsProps> = ({ categories, selected, setSelected }) => {
+  return (
+    <div className="flex gap-2 overflow-x-auto hide-scrollbar py-1">
+      {categories.map((cat) => (
+        <button
+          key={cat}
+          onClick={() => setSelected(cat)}
+          className={
+            "px-3 py-1.5 rounded-full text-sm font-medium transition border " +
+            (selected === cat
+              ? "bg-[#5E35B1] text-white border-[#5E35B1] shadow-sm"
+              : "bg-white text-[#5E35B1] border-[#E0E0E0] hover:bg-[#ede7f6]")
           }
-        `}
-        aria-current={selected === cat}
-        onClick={() => setSelected(cat)}
-        tabIndex={0}
-        type="button"
-      >
-        {cat}
-      </button>
-    ))}
-  </div>
-);
+          aria-pressed={selected === cat}
+          type="button"
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+  );
+};
 
 export default CategoryTabs;

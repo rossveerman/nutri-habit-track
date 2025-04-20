@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import CategoryTabs from "./CategoryTabs";
 import RecentSearches from "./RecentSearches";
 import FoodList from "./FoodList";
+import FoodSearchBar from "./FoodSearchBar";
 import type { Food } from "@/types";
 
 const MOCK_FOOD_DATABASE: Food[] = [
@@ -200,66 +201,15 @@ const FoodSearch: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto p-4 flex flex-col gap-4 animate-fade-in min-h-[80vh]">
       {/* Search input and actions */}
-      <div className="flex flex-col md:flex-row gap-2 md:items-center">
-        <div className="relative flex-1">
-          <Input
-            type="text"
-            aria-label="Search foods"
-            placeholder="Search foods..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 pr-10"
-          />
-          <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
-          {search && (
-            <button
-              aria-label="Clear search"
-              className="absolute right-3 top-2.5 p-1 text-muted-foreground hover:text-red-500"
-              onClick={handleClear}
-              tabIndex={0}
-              type="button"
-            >
-              <X size={18} />
-            </button>
-          )}
-        </div>
-        <div className="flex gap-2 items-center mt-2 md:mt-0">
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label="Scan barcode"
-            onClick={handleScanBarcode}
-          >
-            <QrCode />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label="Voice search"
-            onClick={handleVoiceSearch}
-          >
-            <Mic />
-          </Button>
-        </div>
-      </div>
+      <FoodSearchBar
+        search={search}
+        setSearch={setSearch}
+        onClear={handleClear}
+        onScanBarcode={handleScanBarcode}
+        onVoiceSearch={handleVoiceSearch}
+      />
       {/* Category tabs */}
-      <div className="flex gap-2 overflow-x-auto hide-scrollbar py-1">
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setCategory(cat)}
-            className={
-              "px-3 py-1.5 rounded-full text-sm font-medium transition border " +
-              (category === cat
-                ? "bg-[#5E35B1] text-white border-[#5E35B1] shadow-sm"
-                : "bg-white text-[#5E35B1] border-[#E0E0E0] hover:bg-[#ede7f6]")
-            }
-            aria-pressed={category === cat}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <CategoryTabs categories={CATEGORIES} selected={category} setSelected={setCategory} />
       {/* Recent searches */}
       {showRecent && (
         <RecentSearches
