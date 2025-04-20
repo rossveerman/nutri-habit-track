@@ -8,7 +8,7 @@ const FoodListItem: React.FC<{ food: Food }> = ({ food }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log(`Navigating to food detail with ID: ${food.id}`);
+    console.log("Navigating to food detail with ID:", food.id);
     navigate(`/food/${food.id}`);
   };
 
