@@ -7,6 +7,7 @@ import { Plus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import SearchFullFoodDialog from '@/components/SearchFullFoodDialog';
 import { FoodFull } from '@/components/FoodDatabaseFull';
+import MobileFoodList from '@/components/MobileFoodList';
 
 export function AddFood() {
   const [isFormOpen, setIsFormOpen] = useState(false);
