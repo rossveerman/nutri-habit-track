@@ -52,6 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				nutritrack: {
+					teal: '#38B2AC',
+					mint: '#4FD1C5',
+					purple: '#9B87F5',
+					light: '#F7FAFC',
+					dark: '#1A202C',
+					gray: '#718096'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
