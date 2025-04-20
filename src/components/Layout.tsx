@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Plus, User, Camera, Search } from 'lucide-react';
@@ -113,6 +114,33 @@ export function Layout({
       <main className="flex-1 mx-auto w-full p-4" style={{ maxWidth: 'min(100%, 540px)' }}>
         {children}
       </main>
+      
+      {/* Responsive mobile navigation footer */}
+      <footer className="bg-white border-t p-4 safe-area-bottom">
+        <nav className="max-w-md mx-auto flex justify-between">
+          <Link to="/" className={`flex flex-col items-center p-2 ${location.pathname === '/' ? 'text-nutritrack-teal' : 'text-gray-400'}`}>
+            <Home size={22} />
+            <span className="text-xs mt-1">Home</span>
+          </Link>
+          
+          <Link to="/add-food" className={`flex flex-col items-center p-2 ${location.pathname === '/add-food' ? 'text-nutritrack-teal' : 'text-gray-400'}`}>
+            <div className="rounded-full bg-nutritrack-teal p-1 -mt-6 border-4 border-white">
+              <Plus size={22} className="text-white" />
+            </div>
+            <span className="text-xs mt-1">Add</span>
+          </Link>
+          
+          <Link to="/camera" className={`flex flex-col items-center p-2 ${location.pathname === '/camera' ? 'text-nutritrack-teal' : 'text-gray-400'}`}>
+            <Camera size={22} />
+            <span className="text-xs mt-1">Scan</span>
+          </Link>
+          
+          <Link to="/profile" className={`flex flex-col items-center p-2 ${location.pathname === '/profile' ? 'text-nutritrack-teal' : 'text-gray-400'}`}>
+            <User size={22} />
+            <span className="text-xs mt-1">Profile</span>
+          </Link>
+        </nav>
+      </footer>
     </div>
   );
 }
