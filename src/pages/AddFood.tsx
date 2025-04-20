@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNutriTrack } from '@/hooks/useNutriTrack';
@@ -181,6 +182,7 @@ export function AddFood() {
         {...(prefillFood ? { key: prefillFood.name, defaultValues: prefillFood } : {})}
       />
       
+      {/* Moved Browse all foods heading and MobileFoodList here under the quick add cards */}
       <div className="block md:hidden pt-2">
         <h3 className="text-base font-semibold mb-2">Browse all foods</h3>
         <MobileFoodList />
