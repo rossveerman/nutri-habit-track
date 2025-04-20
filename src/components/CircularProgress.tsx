@@ -34,15 +34,33 @@ export function CircularProgress({
     ? `${remaining} left` 
     : `${Math.abs(remaining)} over`;
   
-  // Color based on percentage
-  const getColor = () => {
-    if (percentage >= 100) return 'text-red-500';
-    if (percentage >= 90) return 'text-amber-500';
-    return 'text-nutritrack-teal';
+  // Color gradients for progress
+  const getGradient = () => {
+    if (percentage >= 100) return 'stroke-[url(#red-gradient)]';
+    if (percentage >= 90) return 'stroke-[url(#yellow-gradient)]';
+    return 'stroke-[url(#teal-gradient)]';
   };
 
   return (
     <div className={cn('relative flex items-center justify-center', sizeClasses[size], className)}>
+      {/* SVG Gradients */}
+      <svg width="0" height="0">
+        <defs>
+          <linearGradient id="teal-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#4fd1c5" />
+            <stop offset="100%" stopColor="#38b2ac" />
+          </linearGradient>
+          <linearGradient id="yellow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#f6ad55" />
+            <stop offset="100%" stopColor="#ed8936" />
+          </linearGradient>
+          <linearGradient id="red-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fc8181" />
+            <stop offset="100%" stopColor="#f56565" />
+          </linearGradient>
+        </defs>
+      </svg>
+      
       {/* Background circle */}
       <svg className="w-full h-full" viewBox="0 0 100 100">
         <circle
@@ -51,7 +69,8 @@ export function CircularProgress({
           r="45"
           fill="none"
           stroke="#e2e8f0"
-          strokeWidth="8"
+          strokeWidth="10"
+          strokeLinecap="round"
         />
         
         {/* Progress circle */}
@@ -60,12 +79,11 @@ export function CircularProgress({
           cy="50"
           r="45"
           fill="none"
-          stroke="currentColor"
-          strokeWidth="8"
+          strokeWidth="10"
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           strokeLinecap="round"
-          className={cn('transition-all duration-500 ease-in-out transform origin-center', getColor())}
+          className={cn('transition-all duration-500 ease-in-out', getGradient())}
           style={{ 
             transformBox: 'fill-box',
             transform: 'rotate(-90deg)', 
@@ -76,19 +94,22 @@ export function CircularProgress({
       
       {showText && (
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className={cn('font-bold transition-colors', getColor(), 
-            size === 'sm' ? 'text-base' : 
-            size === 'md' ? 'text-xl' : 
-            'text-2xl'
+          <span className={cn('font-bold', 
+            size === 'sm' ? 'text-xl' : 
+            size === 'md' ? 'text-2xl' : 
+            'text-3xl'
           )}>
-            {Math.round(percentage)}%
+            {value}
           </span>
-          <span className={cn('text-nutritrack-gray mt-1',
+          <span className={cn('text-nutritrack-gray',
             size === 'sm' ? 'text-xs' : 
             size === 'md' ? 'text-sm' : 
             'text-base'
           )}>
-            {remainingText}
+            kcal
+          </span>
+          <span className={cn('text-nutritrack-gray mt-1 text-xs')}>
+            {value}/{max}
           </span>
         </div>
       )}

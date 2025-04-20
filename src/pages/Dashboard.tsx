@@ -1,10 +1,14 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@/components/CircularProgress';
 import MacroBar from '@/components/MacroBar';
 import MealSection from '@/components/MealSection';
 import WaterTracker from '@/components/WaterTracker';
 import { useNutriTrack } from '@/hooks/useNutriTrack';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { CalendarIcon, PlusCircle } from 'lucide-react';
 
 export function Dashboard() {
   const { 
@@ -13,44 +17,60 @@ export function Dashboard() {
     removeFoodEntry, 
     updateWaterIntake 
   } = useNutriTrack();
-
+  
+  const navigate = useNavigate();
+  
   return (
     <div className="space-y-6">
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <div className="flex flex-col items-center">
-          <h2 className="text-xl font-semibold mb-1">Daily Progress</h2>
-          <p className="text-nutritrack-gray text-sm mb-4">
+      {/* Header section */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Today's Summary</h1>
+        <Button variant="outline" size="sm" className="flex items-center gap-1">
+          <CalendarIcon size={16} />
+          <span>April 20</span>
+        </Button>
+      </div>
+      
+      {/* Calories and macros card */}
+      <Card className="overflow-hidden">
+        <div className="bg-gradient-to-r from-nutritrack-teal to-blue-400 p-4 text-white">
+          <h2 className="text-xl font-medium">Daily Progress</h2>
+          <p className="text-sm opacity-90">
             {todayData.totalCalories} / {todayData.goal} calories
           </p>
-          
-          <CircularProgress 
-            value={todayData.totalCalories} 
-            max={todayData.goal} 
-            size="lg"
-          />
-          
-          <div className="w-full mt-6 space-y-3">
-            <MacroBar 
-              label="Protein" 
-              value={todayData.totalProtein} 
-              max={120} 
-              color="bg-nutritrack-purple"
-            />
-            <MacroBar 
-              label="Carbs" 
-              value={todayData.totalCarbs} 
-              max={200} 
-              color="bg-nutritrack-teal"
-            />
-            <MacroBar 
-              label="Fat" 
-              value={todayData.totalFat} 
-              max={70} 
-              color="bg-nutritrack-mint"
-            />
-          </div>
         </div>
-      </div>
+        
+        <CardContent className="p-6">
+          <div className="flex flex-col items-center">
+            <CircularProgress 
+              value={todayData.totalCalories} 
+              max={todayData.goal} 
+              size="lg"
+            />
+            
+            <div className="w-full mt-6 space-y-3">
+              <MacroBar 
+                label="Protein" 
+                value={todayData.totalProtein} 
+                max={120} 
+                color="bg-red-400"
+              />
+              <MacroBar 
+                label="Carbs" 
+                value={todayData.totalCarbs} 
+                max={200} 
+                color="bg-blue-400"
+              />
+              <MacroBar 
+                label="Fat" 
+                value={todayData.totalFat} 
+                max={70} 
+                color="bg-yellow-400"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
       
       <WaterTracker 
         current={user.waterIntake} 
@@ -59,7 +79,18 @@ export function Dashboard() {
       />
       
       <div className="space-y-3">
-        <h3 className="font-medium text-lg">Today's Meals</h3>
+        <div className="flex justify-between items-center">
+          <h3 className="font-medium text-lg">Today's Meals</h3>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => navigate('/add-food')}
+            className="text-nutritrack-teal"
+          >
+            <PlusCircle size={16} className="mr-1" />
+            Add Food
+          </Button>
+        </div>
         
         <MealSection 
           title="Breakfast" 

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Food, MealType } from '@/types';
 import { 
   Accordion,
@@ -18,6 +19,7 @@ interface MealSectionProps {
 
 export function MealSection({ title, type, foods, onRemove }: MealSectionProps) {
   const totalCalories = foods.reduce((sum, food) => sum + food.calories, 0);
+  const navigate = useNavigate();
   
   return (
     <Accordion type="single" collapsible className="border rounded-md">
@@ -34,8 +36,14 @@ export function MealSection({ title, type, foods, onRemove }: MealSectionProps) 
           ) : (
             <ul className="space-y-2">
               {foods.map((food) => (
-                <li key={food.id} className="flex items-center justify-between border-b border-gray-100 py-2">
-                  <div className="flex-1">
+                <li 
+                  key={food.id} 
+                  className="flex items-center justify-between border-b border-gray-100 py-2"
+                >
+                  <div 
+                    className="flex-1 cursor-pointer" 
+                    onClick={() => navigate(`/food/${food.id}`)}
+                  >
                     <p className="font-medium text-sm">{food.name}</p>
                     <div className="flex gap-3 text-xs text-nutritrack-gray">
                       <span>{food.servingSize}</span>
@@ -46,7 +54,10 @@ export function MealSection({ title, type, foods, onRemove }: MealSectionProps) 
                     </div>
                   </div>
                   <button 
-                    onClick={() => onRemove(food.id, type)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onRemove(food.id, type);
+                    }}
                     className="text-gray-400 hover:text-red-500 transition-colors"
                     aria-label="Remove food"
                   >
