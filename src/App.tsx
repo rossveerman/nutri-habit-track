@@ -11,6 +11,10 @@ import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
 import FoodDetail from "./pages/FoodDetail";
 import CameraPage from "./pages/CameraPage";
+import SplashScreen from "./pages/SplashScreen";
+import WelcomeScreen from "./pages/WelcomeScreen";
+import LanguageSelection from "./pages/LanguageSelection";
+import AuthScreen from "./pages/AuthScreen";
 
 const queryClient = new QueryClient();
 
@@ -21,12 +25,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<SplashScreen />} />
+          <Route path="/welcome" element={<WelcomeScreen />} />
+          <Route path="/language" element={<LanguageSelection />} />
+          <Route path="/auth" element={<AuthScreen />} />
+          <Route path="/dashboard" element={<Index />} />
           <Route path="/add-food" element={<Layout><AddFood /></Layout>} />
           <Route path="/profile" element={<Layout><Profile /></Layout>} />
           <Route path="/food/:id" element={<FoodDetail />} />
           <Route path="/camera" element={<CameraPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
