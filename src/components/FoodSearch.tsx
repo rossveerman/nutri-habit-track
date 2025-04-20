@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from "react";
 import { Search, QrCode, Mic, Plus, X, ChevronRight, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -244,11 +243,23 @@ const FoodSearch: React.FC = () => {
         </div>
       </div>
       {/* Category tabs */}
-      <CategoryTabs
-        categories={CATEGORIES}
-        selected={category}
-        setSelected={setCategory}
-      />
+      <div className="flex gap-2 overflow-x-auto hide-scrollbar py-1">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setCategory(cat)}
+            className={
+              "px-3 py-1.5 rounded-full text-sm font-medium transition border " +
+              (category === cat
+                ? "bg-[#5E35B1] text-white border-[#5E35B1] shadow-sm"
+                : "bg-white text-[#5E35B1] border-[#E0E0E0] hover:bg-[#ede7f6]")
+            }
+            aria-pressed={category === cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
       {/* Recent searches */}
       {showRecent && (
         <RecentSearches
