@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNutriTrack } from '@/hooks/useNutriTrack';
@@ -33,7 +32,6 @@ export function AddFood() {
     navigate('/');
   };
 
-  // New: handle food selection from database search and prefill the custom food form
   const handleSelectDbFood = (food: FoodFull) => {
     setPrefillFood({
       name: food.name,
@@ -179,12 +177,15 @@ export function AddFood() {
           addFoodEntry(food);
           navigate('/');
         }}
-        // Prefill form if food was selected from the search
         {...(prefillFood ? { key: prefillFood.name, defaultValues: prefillFood } : {})}
       />
+      
+      <div className="block md:hidden pt-2">
+        <h3 className="text-base font-semibold mb-2">Browse all foods</h3>
+        <MobileFoodList />
+      </div>
     </div>
   );
 }
 
 export default AddFood;
-
