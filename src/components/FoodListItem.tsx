@@ -2,17 +2,27 @@
 import React from "react";
 import { Food } from "@/types";
 import { ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-// Placeholder avatar for now; could extend with food images/avatars
 const FoodListItem: React.FC<{ food: Food }> = ({ food }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/food/${food.id}`);
+  };
+
   return (
     <li
-      className="flex items-center px-4 py-3 hover:bg-[#f1edfa] transition group"
+      className="flex items-center px-4 py-3 hover:bg-[#f1edfa] transition group cursor-pointer"
       role="button"
       tabIndex={0}
       aria-label={`View details for ${food.name}`}
-      // Could add a click handler to open detail
-      // onClick={() => ...}
+      onClick={handleClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          handleClick();
+        }
+      }}
     >
       <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-[#9b87f5] font-bold text-lg mr-4 flex-shrink-0">
         {food.name[0]}
