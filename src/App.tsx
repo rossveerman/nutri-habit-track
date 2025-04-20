@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,7 +8,7 @@ import AddFood from "./pages/AddFood";
 import Profile from "./pages/Profile";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
-import FoodDetail from "./pages/FoodDetail";
+import FoodDetail from "./pages/food-detail/FoodDetail";
 import CameraPage from "./pages/CameraPage";
 import SplashScreen from "./pages/SplashScreen";
 import WelcomeScreen from "./pages/WelcomeScreen";
