@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, X, Image, FlashOff, Check } from 'lucide-react';
+import { Camera, X, Image, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { FlashlightOff } from 'lucide-react';  // Corrected import
 
 export function CameraPage() {
   const [isScanning, setIsScanning] = useState(false);
@@ -87,7 +87,7 @@ export function CameraPage() {
         <h2 className="text-white text-lg font-medium">Scan Food</h2>
         
         <Button variant="ghost" size="icon" className="text-white">
-          <FlashOff size={24} />
+          <FlashlightOff size={24} />  {/* Corrected icon name */}
         </Button>
       </div>
       
