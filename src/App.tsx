@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
 import FoodDetail from "./pages/FoodDetail";
+import CameraPage from "./pages/CameraPage";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/add-food" element={<Layout><AddFood /></Layout>} />
           <Route path="/profile" element={<Layout><Profile /></Layout>} />
           <Route path="/food/:id" element={<FoodDetail />} />
+          <Route path="/camera" element={<CameraPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

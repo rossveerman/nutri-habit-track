@@ -8,7 +8,7 @@ import WaterTracker from '@/components/WaterTracker';
 import { useNutriTrack } from '@/hooks/useNutriTrack';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon, PlusCircle } from 'lucide-react';
+import { CalendarIcon, PlusCircle, Camera } from 'lucide-react';
 
 export function Dashboard() {
   const { 
@@ -81,15 +81,26 @@ export function Dashboard() {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <h3 className="font-medium text-lg">Today's Meals</h3>
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={() => navigate('/add-food')}
-            className="text-nutritrack-teal"
-          >
-            <PlusCircle size={16} className="mr-1" />
-            Add Food
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => navigate('/camera')}
+              className="text-nutritrack-teal"
+            >
+              <Camera size={16} className="mr-1" />
+              Scan Food
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/add-food')}
+              className="text-nutritrack-teal"
+            >
+              <PlusCircle size={16} className="mr-1" />
+              Add Food
+            </Button>
+          </div>
         </div>
         
         <MealSection 
