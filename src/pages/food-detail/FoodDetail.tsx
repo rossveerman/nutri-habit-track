@@ -21,6 +21,10 @@ export default function FoodDetail() {
   const [healthScore] = useState(7);
   const [quantity, setQuantity] = useState(1);
 
+  useEffect(() => {
+    console.log(`Accessing food detail page with ID parameter: ${id}`);
+  }, [id]);
+
   const food = findFoodById(id, todayData);
 
   useEffect(() => {
