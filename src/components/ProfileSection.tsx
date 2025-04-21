@@ -3,6 +3,7 @@ import React from "react";
 import { UserRound, Settings, CalendarCheck } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import StreakCalendar from "@/components/StreakCalendar";
 
 const ProfileSection: React.FC = () => {
   // Hardcoded demo user details; connect to user context/hook as needed
@@ -15,8 +16,25 @@ const ProfileSection: React.FC = () => {
     email: "jane.doe@email.com",
   };
 
+  // Demo streak: Tues, Wed, Fri marked as 'active'
+  const streakDays = [1, 2, 4];
+
   return (
     <div className="min-h-screen bg-gray-50 pb-20 px-4 pt-5 max-w-md mx-auto">
+      <div className="mb-7">
+        <h1 className="text-2xl font-bold mb-2">My Profile</h1>
+        <StreakCalendar
+          streakDays={streakDays}
+          daysToShow={7}
+          animate={true}
+          showLabels={true}
+          labels={["M", "T", "W", "T", "F", "S", "S"]}
+        />
+        <div className="text-center text-xs text-nutritrack-gray/80 mb-1">
+          Your Consistency (streak days this week)
+        </div>
+      </div>
+
       <div className="flex flex-col items-center mb-6">
         <div className="w-20 h-20 rounded-full bg-nutritrack-teal/20 flex items-center justify-center text-nutritrack-teal font-bold text-3xl">
           <UserRound size={56} className="text-nutritrack-teal" />
