@@ -1,5 +1,5 @@
 
-import { Food, generateId } from "../types";
+import { Food, generateId } from "../../types";
 
 export const ALCOHOLIC_BEVERAGES: Food[] = [
   {
@@ -15,7 +15,7 @@ export const ALCOHOLIC_BEVERAGES: Food[] = [
     sodium: 14,
     calcium: 14,
     iron: 0.01,
-    vitC: 0,
+    vitaminC: 0,
     category: "alcohol",
   },
   {
@@ -31,7 +31,7 @@ export const ALCOHOLIC_BEVERAGES: Food[] = [
     sodium: 10,
     calcium: 7,
     iron: 0,
-    vitC: 0,
+    vitaminC: 0,
     category: "alcohol",
   },
   {
@@ -47,7 +47,7 @@ export const ALCOHOLIC_BEVERAGES: Food[] = [
     sodium: 5,
     calcium: 12,
     iron: 0.5,
-    vitC: 0,
+    vitaminC: 0,
     category: "alcohol",
   },
   {
@@ -63,7 +63,7 @@ export const ALCOHOLIC_BEVERAGES: Food[] = [
     sodium: 7,
     calcium: 9,
     iron: 0.3,
-    vitC: 0,
+    vitaminC: 0,
     category: "alcohol",
   },
   {
@@ -79,9 +79,10 @@ export const ALCOHOLIC_BEVERAGES: Food[] = [
     sodium: 0,
     calcium: 0,
     iron: 0,
-    vitC: 0,
+    vitaminC: 0,
     category: "alcohol",
   },
 ];
 
 export default ALCOHOLIC_BEVERAGES;
+

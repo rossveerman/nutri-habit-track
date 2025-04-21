@@ -1,5 +1,5 @@
 
-import { Food, generateId } from "../types";
+import { Food, generateId } from "../../types";
 
 export const FRUITS: Food[] = [
   {
@@ -15,7 +15,7 @@ export const FRUITS: Food[] = [
     sodium: 2,
     calcium: 11,
     iron: 0.2,
-    vitC: 8.4,
+    vitaminC: 8.4,
     category: "fruit",
   },
   {
@@ -31,7 +31,7 @@ export const FRUITS: Food[] = [
     sodium: 1,
     calcium: 6,
     iron: 0.3,
-    vitC: 10,
+    vitaminC: 10,
     category: "fruit",
   },
   {
@@ -47,7 +47,7 @@ export const FRUITS: Food[] = [
     sodium: 0,
     calcium: 62,
     iron: 0.1,
-    vitC: 77,
+    vitaminC: 77,
     category: "fruit",
   },
   {
@@ -63,7 +63,7 @@ export const FRUITS: Food[] = [
     sodium: 2,
     calcium: 15,
     iron: 0.3,
-    vitC: 4,
+    vitaminC: 4,
     category: "fruit",
   },
   {
@@ -79,7 +79,7 @@ export const FRUITS: Food[] = [
     sodium: 1,
     calcium: 23,
     iron: 0.4,
-    vitC: 89,
+    vitaminC: 89,
     category: "fruit",
   },
   {
@@ -95,7 +95,7 @@ export const FRUITS: Food[] = [
     sodium: 1,
     calcium: 9,
     iron: 0.4,
-    vitC: 14,
+    vitaminC: 14,
     category: "fruit",
   },
   {
@@ -111,7 +111,7 @@ export const FRUITS: Food[] = [
     sodium: 0,
     calcium: 9,
     iron: 0.3,
-    vitC: 10,
+    vitaminC: 10,
     category: "fruit",
   },
   {
@@ -127,9 +127,10 @@ export const FRUITS: Food[] = [
     sodium: 2,
     calcium: 20,
     iron: 0.4,
-    vitC: 79,
+    vitaminC: 79,
     category: "fruit",
   },
 ];
 
 export default FRUITS;
+

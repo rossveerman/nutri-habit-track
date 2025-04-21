@@ -1,5 +1,5 @@
 
-import { Food, generateId } from "../types";
+import { Food, generateId } from "../../types";
 
 export const SNACKS_SWEETS: Food[] = [
   {
@@ -15,7 +15,7 @@ export const SNACKS_SWEETS: Food[] = [
     sodium: 147,
     calcium: 7,
     iron: 0.4,
-    vitC: 9,
+    vitaminC: 9,
     category: "snack",
   },
   {
@@ -31,7 +31,7 @@ export const SNACKS_SWEETS: Food[] = [
     sodium: 35,
     calcium: 83,
     iron: 1.1,
-    vitC: 0,
+    vitaminC: 0,
     category: "sweet",
   },
   {
@@ -47,9 +47,10 @@ export const SNACKS_SWEETS: Food[] = [
     sodium: 101,
     calcium: 4,
     iron: 0.3,
-    vitC: 0,
+    vitaminC: 0,
     category: "sweet",
   },
 ];
 
 export default SNACKS_SWEETS;
+

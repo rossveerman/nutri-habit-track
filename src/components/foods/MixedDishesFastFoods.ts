@@ -1,5 +1,5 @@
 
-import { Food, generateId } from "../types";
+import { Food, generateId } from "../../types";
 
 export const MIXED_DISHES_FAST_FOODS: Food[] = [
   {
@@ -15,7 +15,7 @@ export const MIXED_DISHES_FAST_FOODS: Food[] = [
     sodium: 1007,
     calcium: 254,
     iron: 4.4,
-    vitC: 0.9,
+    vitaminC: 0.9,
     category: "mixed",
   },
   {
@@ -31,7 +31,7 @@ export const MIXED_DISHES_FAST_FOODS: Food[] = [
     sodium: 684,
     calcium: 201,
     iron: 2.7,
-    vitC: 1.2,
+    vitaminC: 1.2,
     category: "mixed",
   },
   {
@@ -47,9 +47,10 @@ export const MIXED_DISHES_FAST_FOODS: Food[] = [
     sodium: 460,
     calcium: 50,
     iron: 2.5,
-    vitC: 6,
+    vitaminC: 6,
     category: "mixed",
   },
 ];
 
 export default MIXED_DISHES_FAST_FOODS;
+

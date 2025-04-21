@@ -1,5 +1,5 @@
 
-import { Food, generateId } from "../types";
+import { Food, generateId } from "../../types";
 
 export const GRAINS_LEGUMES_NUTS: Food[] = [
   {
@@ -15,7 +15,7 @@ export const GRAINS_LEGUMES_NUTS: Food[] = [
     sodium: 2,
     calcium: 16,
     iron: 1.9,
-    vitC: 0,
+    vitaminC: 0,
     category: "grain",
   },
   {
@@ -31,7 +31,7 @@ export const GRAINS_LEGUMES_NUTS: Food[] = [
     sodium: 549,
     calcium: 60,
     iron: 2,
-    vitC: 1,
+    vitaminC: 1,
     category: "legume",
   },
   {
@@ -47,9 +47,10 @@ export const GRAINS_LEGUMES_NUTS: Food[] = [
     sodium: 1,
     calcium: 75,
     iron: 1,
-    vitC: 0,
+    vitaminC: 0,
     category: "nut",
   },
 ];
 
 export default GRAINS_LEGUMES_NUTS;
+

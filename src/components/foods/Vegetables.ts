@@ -1,5 +1,5 @@
 
-import { Food, generateId } from "../types";
+import { Food, generateId } from "../../types";
 
 export const VEGETABLES: Food[] = [
   {
@@ -15,7 +15,7 @@ export const VEGETABLES: Food[] = [
     sodium: 6,
     calcium: 12,
     iron: 0.4,
-    vitC: 17,
+    vitaminC: 17,
     category: "vegetable",
   },
   {
@@ -31,7 +31,7 @@ export const VEGETABLES: Food[] = [
     sodium: 17,
     calcium: 17,
     iron: 1.2,
-    vitC: 22,
+    vitaminC: 22,
     category: "vegetable",
   },
   {
@@ -41,13 +41,13 @@ export const VEGETABLES: Food[] = [
     calories: 53,
     protein: 3.6,
     carbs: 10.8,
-    fiber: 5.0,
+    fiber: 5,
     sugars: 2.1,
     fat: 0.6,
     sodium: 62,
     calcium: 60,
     iron: 1.1,
-    vitC: 97,
+    vitaminC: 97,
     category: "vegetable",
   },
   {
@@ -63,7 +63,7 @@ export const VEGETABLES: Food[] = [
     sodium: 18,
     calcium: 20,
     iron: 0.2,
-    vitC: 4,
+    vitaminC: 4,
     category: "vegetable",
   },
   {
@@ -79,7 +79,7 @@ export const VEGETABLES: Food[] = [
     sodium: 7,
     calcium: 13,
     iron: 0.3,
-    vitC: 2,
+    vitaminC: 2,
     category: "vegetable",
   },
   {
@@ -95,7 +95,7 @@ export const VEGETABLES: Food[] = [
     sodium: 2,
     calcium: 12,
     iron: 0.4,
-    vitC: 100,
+    vitaminC: 100,
     category: "vegetable",
   },
   {
@@ -111,7 +111,7 @@ export const VEGETABLES: Food[] = [
     sodium: 3,
     calcium: 16,
     iron: 0.3,
-    vitC: 4,
+    vitaminC: 4,
     category: "vegetable",
   },
   {
@@ -127,7 +127,7 @@ export const VEGETABLES: Food[] = [
     sodium: 4,
     calcium: 25,
     iron: 0.2,
-    vitC: 8,
+    vitaminC: 8,
     category: "vegetable",
   },
   {
@@ -143,9 +143,10 @@ export const VEGETABLES: Food[] = [
     sodium: 24,
     calcium: 30,
     iron: 0.8,
-    vitC: 8,
+    vitaminC: 8,
     category: "vegetable",
   },
 ];
 
 export default VEGETABLES;
+

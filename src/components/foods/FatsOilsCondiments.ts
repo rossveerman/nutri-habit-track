@@ -1,5 +1,5 @@
 
-import { Food, generateId } from "../types";
+import { Food, generateId } from "../../types";
 
 export const FATS_OILS_CONDIMENTS: Food[] = [
   {
@@ -15,7 +15,7 @@ export const FATS_OILS_CONDIMENTS: Food[] = [
     sodium: 0,
     calcium: 1,
     iron: 0,
-    vitC: 0,
+    vitaminC: 0,
     category: "oil",
   },
   {
@@ -31,7 +31,7 @@ export const FATS_OILS_CONDIMENTS: Food[] = [
     sodium: 90,
     calcium: 3,
     iron: 0,
-    vitC: 0,
+    vitaminC: 0,
     category: "fat",
   },
   {
@@ -47,9 +47,10 @@ export const FATS_OILS_CONDIMENTS: Food[] = [
     sodium: 154,
     calcium: 3,
     iron: 0,
-    vitC: 1,
+    vitaminC: 1,
     category: "condiment",
   },
 ];
 
 export default FATS_OILS_CONDIMENTS;
+
