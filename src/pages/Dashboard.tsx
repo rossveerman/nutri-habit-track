@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@/components/CircularProgress';
@@ -9,6 +8,7 @@ import { useNutriTrack } from '@/hooks/useNutriTrack';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CalendarIcon, PlusCircle, Camera } from 'lucide-react';
+import StreakCalendar from '@/components/StreakCalendar';
 
 export function Dashboard() {
   const { 
@@ -20,8 +20,19 @@ export function Dashboard() {
   
   const navigate = useNavigate();
   
+  // Mock: highlight Monday, Tuesday, Wednesday, Friday, Saturday as streaks
+  const streakDays = [0, 1, 2, 4, 5];
+
   return (
     <div className="space-y-6">
+      {/* Streak Calendar at top */}
+      <StreakCalendar
+        streakDays={streakDays}
+        daysToShow={7}
+        animate={true}
+        // You can later connect streakDays to actual tracked user data!
+      />
+      
       {/* Header section */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Today's Summary</h1>
