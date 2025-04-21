@@ -1,40 +1,41 @@
-
 import React from "react";
 import { Food } from "@/types";
-import { ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Heart, HeartOff } from "lucide-react";
+import { useFavourites } from "./FavouritesContext";
+import { Link } from "react-router-dom";
 
-const FoodListItem: React.FC<{ food: Food }> = ({ food }) => {
-  const navigate = useNavigate();
+interface Props {
+  food: Food;
+}
 
-  const handleClick = () => {
-    console.log("Navigating to food detail with ID:", food.id);
-    navigate(`/food/${food.id}`);
-  };
+const FoodListItem: React.FC<Props> = ({ food }) => {
+  const { isFavourite, addFavourite, removeFavourite } = useFavourites();
+  const fav = isFavourite(food.id);
 
   return (
-    <li
-      className="flex items-center px-4 py-3 hover:bg-[#f1edfa] transition group cursor-pointer"
-      role="button"
-      tabIndex={0}
-      aria-label={`View details for ${food.name}`}
-      onClick={handleClick}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          handleClick();
-        }
-      }}
-    >
-      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-[#9b87f5] font-bold text-lg mr-4 flex-shrink-0">
-        {food.name[0]}
-      </div>
-      <div className="flex-1">
-        <div className="font-semibold">{food.name}</div>
-        <div className="text-xs text-muted-foreground">
-          {food.servingSize} • {food.calories} cal
+    <li className="flex items-center gap-4 px-4 py-3 hover:bg-gray-50 transition group">
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between gap-2">
+          <span className="font-semibold text-base truncate">{food.name}</span>
+          <button
+            onClick={e => {
+              e.stopPropagation();
+              fav ? removeFavourite(food.id) : addFavourite(food);
+            }}
+            aria-label={fav ? "Remove from favourites" : "Add to favourites"}
+            className="p-1 rounded-full hover:bg-nutritrack-teal/10"
+          >
+            {fav ? <Heart className="text-red-500 fill-red-500" size={20} /> : <Heart className="text-gray-300" size={20} />}
+          </button>
+        </div>
+        <div className="text-xs text-gray-500">{food.serving}</div>
+        <div className="flex gap-4 mt-2">
+          <div className="text-xs text-gray-500">Calories: <span className="font-medium text-gray-800">{food.calories}</span></div>
+          <div className="text-xs text-gray-500">Protein: <span className="font-medium text-gray-800">{food.protein}g</span></div>
+          <div className="text-xs text-gray-500">Carbs: <span className="font-medium text-gray-800">{food.carbs}g</span></div>
+          <div className="text-xs text-gray-500">Fat: <span className="font-medium text-gray-800">{food.fat}g</span></div>
         </div>
       </div>
-      <ChevronRight className="ml-3 text-muted-foreground opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition" />
     </li>
   );
 };
