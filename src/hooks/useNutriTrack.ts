@@ -39,7 +39,7 @@ const sampleFoods: Food[] = [
     quantity: 1,
     mealType: 'breakfast',
     timestamp: new Date().toISOString(),
-    category: 'Grain'
+    category: 'grain' // changed from 'Grain'
   },
   {
     id: '2',
@@ -59,7 +59,7 @@ const sampleFoods: Food[] = [
     quantity: 1,
     mealType: 'lunch',
     timestamp: new Date().toISOString(),
-    category: 'Protein'
+    category: 'protein' // changed from 'Protein'
   },
   {
     id: '3',
@@ -79,7 +79,7 @@ const sampleFoods: Food[] = [
     quantity: 1,
     mealType: 'dinner',
     timestamp: new Date().toISOString(),
-    category: 'Protein'
+    category: 'protein' // changed from 'Protein'
   },
   {
     id: '4',
@@ -99,7 +99,7 @@ const sampleFoods: Food[] = [
     quantity: 1,
     mealType: 'snack',
     timestamp: new Date().toISOString(),
-    category: 'Dairy'
+    category: 'dairy' // changed from 'Dairy'
   }
 ];
 
