@@ -34,3 +34,4 @@ export const VEGETABLES: FoodFull[] = [
   },
   // ... Copy additional vegetable items here from the previous list.
 ];
+

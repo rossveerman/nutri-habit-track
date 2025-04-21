@@ -78,3 +78,4 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     vitC: 0,
   },
 ];
+

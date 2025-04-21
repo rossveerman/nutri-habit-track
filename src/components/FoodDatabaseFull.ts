@@ -1,3 +1,4 @@
+
 export interface FoodFull {
   id: string;
   name: string;
@@ -30,3 +31,4 @@ export const FULL_FOOD_DATABASE: FoodFull[] = [
   ...GRAINS_LEGUMES_NUTS,
   // Spread new arrays here if more groups are added
 ];
+

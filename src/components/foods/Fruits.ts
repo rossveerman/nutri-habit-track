@@ -49,3 +49,4 @@ export const FRUITS: FoodFull[] = [
   },
   // ... Copy additional fruit items here from the previous list.
 ];
+
