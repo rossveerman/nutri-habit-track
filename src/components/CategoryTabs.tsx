@@ -9,7 +9,7 @@ type CategoryTabsProps = {
 };
 
 const CategoryTabs: React.FC<CategoryTabsProps> = ({ categories, selected, setSelected }) => {
-  // Add a simple ripple logic per tab (using Tailwind + inline styling)
+  // Ripple references for animation
   const rippleRefs = useRef<{[k:string]:HTMLSpanElement|null}>({});
 
   const handleTabClick = (cat: string, e: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,14 +35,14 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categories, selected, setSe
           key={cat}
           onClick={e => handleTabClick(cat, e)}
           className={
-            "px-3 py-1.5 rounded-full text-sm font-medium transition border relative overflow-hidden " +
+            "px-4 py-2 rounded-full text-sm font-medium transition border relative overflow-visible whitespace-nowrap " +
             (selected === cat
               ? "bg-[#5E35B1] text-white border-[#5E35B1] shadow-sm"
               : "bg-white text-[#5E35B1] border-[#E0E0E0] hover:bg-[#ede7f6]")
           }
           aria-pressed={selected === cat}
           type="button"
-          style={{ position: "relative" }}
+          style={{ position: "relative", minWidth: "60px" }}
         >
           {cat}
           <span
@@ -57,3 +57,4 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categories, selected, setSe
 };
 
 export default CategoryTabs;
+
