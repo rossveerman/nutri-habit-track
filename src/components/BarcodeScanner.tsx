@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Camera, X, FlashlightOff, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { BrowserMultiFormatReader, Result } from '@zxing/library';
+import { CapacitorService } from '@/services/CapacitorService';
 
 interface BarcodeScannerProps {
   onScan?: (barcode: string) => void;
@@ -16,6 +16,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, onClose }) => {
   const [isScanning, setIsScanning] = useState(true);
   const [flashActive, setFlashActive] = useState(false);
   const [detectedCode, setDetectedCode] = useState<string | null>(null);
+  const [isCapacitor, setIsCapacitor] = useState(false);
   
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -23,78 +24,123 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, onClose }) => {
   const codeReaderRef = useRef<BrowserMultiFormatReader | null>(null);
 
   useEffect(() => {
-    // Initialize barcode reader
-    codeReaderRef.current = new BrowserMultiFormatReader();
-    
-    // Request camera permission and start scanning
-    const startScanning = async () => {
+    const checkCapacitor = async () => {
       try {
-        // Check if mediaDevices is supported
-        if (!navigator.mediaDevices) {
-          setHasPermission(false);
-          toast({
-            title: "Camera Error",
-            description: "Your browser doesn't support camera access.",
-            variant: "destructive",
-          });
-          return;
-        }
-        
-        // Check for camera permission
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-        setHasPermission(true);
-        stream.getTracks().forEach(track => track.stop()); // Stop the stream as we'll use ZXing to handle it
-        
-        // Start continuous scanning
-        if (videoRef.current && isScanning) {
-          try {
-            codeReaderRef.current?.decodeFromVideoDevice(
-              undefined, 
-              videoRef.current, 
-              (result: Result | undefined, error: any) => {
-                if (result && result.getText()) {
-                  setDetectedCode(result.getText());
-                  setIsScanning(false);
-                  toast({
-                    title: "Barcode Detected",
-                    description: `Code: ${result.getText()}`,
-                  });
-                  
-                  if (onScan) {
-                    onScan(result.getText());
-                  }
-                }
-              }
-            );
-          } catch (error) {
-            console.error("Error starting barcode scanner:", error);
-            toast({
-              title: "Scanner Error",
-              description: "Failed to start the barcode scanner.",
-              variant: "destructive",
-            });
-          }
-        }
+        const capacitorGlobal = (window as any).Capacitor;
+        setIsCapacitor(!!capacitorGlobal?.isNative);
       } catch (err) {
-        console.error("Camera permission error:", err);
-        setHasPermission(false);
-        toast({
-          title: "Camera Permission Denied",
-          description: "Please allow camera access to scan barcodes.",
-          variant: "destructive",
-        });
+        setIsCapacitor(false);
       }
     };
     
-    startScanning();
+    checkCapacitor();
+  }, []);
+
+  useEffect(() => {
+    if (isCapacitor) {
+      handleCapacitorBarcodeScanning();
+    } else {
+      initializeWebScanner();
+    }
     
-    // Cleanup
     return () => {
       if (codeReaderRef.current) {
         codeReaderRef.current.reset();
       }
+      
+      if (isCapacitor) {
+        CapacitorService.stopBarcodeScanning().catch(console.error);
+      }
     };
-  }, [toast, isScanning, onScan]);
+  }, [isCapacitor, isScanning]);
+  
+  const handleCapacitorBarcodeScanning = async () => {
+    if (!isScanning) return;
+    
+    try {
+      const barcodeData = await CapacitorService.startBarcodeScanning();
+      
+      if (barcodeData) {
+        setDetectedCode(barcodeData);
+        setIsScanning(false);
+        
+        toast({
+          title: "Barcode Detected",
+          description: `Code: ${barcodeData}`,
+        });
+        
+        if (onScan) {
+          onScan(barcodeData);
+        }
+      }
+    } catch (error) {
+      console.error('Capacitor barcode error:', error);
+      toast({
+        title: "Scanner Error",
+        description: "Failed to access barcode scanner",
+        variant: "destructive",
+      });
+      setHasPermission(false);
+    }
+  };
+  
+  const initializeWebScanner = async () => {
+    codeReaderRef.current = new BrowserMultiFormatReader();
+    
+    try {
+      if (!navigator.mediaDevices) {
+        setHasPermission(false);
+        toast({
+          title: "Camera Error",
+          description: "Your browser doesn't support camera access.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      setHasPermission(true);
+      stream.getTracks().forEach(track => track.stop());
+      
+      if (videoRef.current && isScanning) {
+        try {
+          codeReaderRef.current?.decodeFromVideoDevice(
+            undefined, 
+            videoRef.current, 
+            (result: Result | undefined, error: any) => {
+              if (result && result.getText()) {
+                setDetectedCode(result.getText());
+                setIsScanning(false);
+                toast({
+                  title: "Barcode Detected",
+                  description: `Code: ${result.getText()}`,
+                });
+                
+                if (onScan) {
+                  onScan(result.getText());
+                }
+              }
+            }
+          );
+        } catch (error) {
+          console.error("Error starting barcode scanner:", error);
+          toast({
+            title: "Scanner Error",
+            description: "Failed to start the barcode scanner.",
+            variant: "destructive",
+          });
+        }
+      }
+    } catch (err) {
+      console.error("Camera permission error:", err);
+      setHasPermission(false);
+      toast({
+        title: "Camera Permission Denied",
+        description: "Please allow camera access to scan barcodes.",
+        variant: "destructive",
+      });
+    }
+  };
   
   const handleCloseScanner = () => {
     if (onClose) {
@@ -105,7 +151,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, onClose }) => {
   };
   
   const toggleFlash = () => {
-    // Note: Web API has limited torch/flash control
     setFlashActive(!flashActive);
     toast({
       description: flashActive 
@@ -144,9 +189,20 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, onClose }) => {
     );
   }
 
+  if (isCapacitor && isScanning) {
+    return (
+      <div className="camera-placeholder">
+        <Camera size={64} />
+        <p className="text-center">Scanning barcode...</p>
+        <Button variant="outline" className="text-white border-white mt-4" onClick={handleCloseScanner}>
+          Cancel
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-0 bg-black flex flex-col z-50">
-      {/* Camera header */}
       <div className="p-4 flex justify-between items-center">
         <Button 
           variant="ghost" 
@@ -169,21 +225,19 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, onClose }) => {
         </Button>
       </div>
       
-      {/* Camera viewport */}
       <div className="flex-1 relative">
-        {/* The video element where the camera feed will be shown */}
-        <video
-          ref={videoRef}
-          className="h-full w-full object-cover"
-          muted
-          playsInline
-        />
+        {!isCapacitor && (
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover"
+            muted
+            playsInline
+          />
+        )}
         
-        {/* Scanning overlay */}
-        {isScanning && (
+        {isScanning && !isCapacitor && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="border-2 border-white w-64 h-64 md:w-80 md:h-80 relative">
-              {/* Scanner animation line */}
               <div className="absolute left-0 right-0 h-0.5 bg-nutritrack-teal animate-[scanLine_2s_ease-in-out_infinite]"></div>
               <div className="absolute bottom-0 left-0 right-0 bg-black/50 py-2 text-center">
                 <p className="text-white text-sm">Position barcode within frame</p>
@@ -192,7 +246,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, onClose }) => {
           </div>
         )}
         
-        {/* Barcode detected result */}
         {detectedCode && (
           <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
             <div className="bg-white p-6 rounded-lg max-w-sm w-full m-4">

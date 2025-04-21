@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import { useToast } from '@/hooks/use-toast';
-import { MOCK_FOOD_DATABASE } from '@/components/FoodDatabase';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import BarcodeDatabaseService from '@/services/BarcodeDatabaseService';
 
 export function BarcodeScannerPage() {
   const [scannedCode, setScannedCode] = useState<string | null>(null);
@@ -19,25 +19,41 @@ export function BarcodeScannerPage() {
     setScannedCode(code);
     setIsLoading(true);
     
-    // Simulate API lookup with mock data
-    setTimeout(() => {
-      // In reality, you'd make an API call to a food database using the barcode
-      // For demo purposes, just randomly select an item from our mock database
-      const randomIndex = Math.floor(Math.random() * MOCK_FOOD_DATABASE.length);
-      const mockFood = MOCK_FOOD_DATABASE[randomIndex];
-      
-      setFoodItem({
-        ...mockFood,
-        barcode: code
+    // Try to look up the food from the barcode database
+    BarcodeDatabaseService.lookupBarcode(code)
+      .then(product => {
+        if (product) {
+          setFoodItem({
+            ...product,
+            barcode: code
+          });
+          
+          toast({
+            title: "Product Found",
+            description: `Found: ${product.name}`,
+          });
+        } else {
+          // If not found, show appropriate messaging
+          setFoodItem(null);
+          toast({
+            title: "Product Not Found",
+            description: "This barcode isn't in our database. You can add it as a custom food.",
+            variant: "destructive",
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error looking up barcode:", error);
+        toast({
+          title: "Lookup Error",
+          description: "Failed to look up the barcode information.",
+          variant: "destructive",
+        });
+        setFoodItem(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-      
-      setIsLoading(false);
-      
-      toast({
-        title: "Food Identified",
-        description: `Found: ${mockFood.name}`,
-      });
-    }, 1500);
   };
   
   const addFoodToLog = () => {
@@ -52,6 +68,13 @@ export function BarcodeScannerPage() {
       // Navigate back to main page
       setTimeout(() => navigate('/'), 1000);
     }
+  };
+
+  const createCustomFood = () => {
+    // Navigate to the custom food editor with the barcode
+    navigate('/add-custom-food', { 
+      state: { barcode: scannedCode } 
+    });
   };
   
   const scanAgain = () => {
@@ -76,7 +99,7 @@ export function BarcodeScannerPage() {
             <Card>
               <CardHeader className="pb-2">
                 <h3 className="text-xl font-semibold">{foodItem.name}</h3>
-                <p className="text-sm text-gray-500">{foodItem.category}</p>
+                <p className="text-sm text-gray-500">{foodItem.brand || "Unknown Brand"}</p>
               </CardHeader>
               
               <CardContent>
@@ -87,7 +110,7 @@ export function BarcodeScannerPage() {
                   </div>
                   <div className="bg-gray-50 p-3 rounded text-center">
                     <p className="text-xs text-gray-500">Serving</p>
-                    <p className="font-medium">{foodItem.servingSize}</p>
+                    <p className="font-medium">{foodItem.servingSize} {foodItem.servingSizeUnit}</p>
                   </div>
                 </div>
                 
@@ -127,9 +150,23 @@ export function BarcodeScannerPage() {
               </CardContent>
             </Card>
           ) : (
-            <Card className="p-6 text-center">
-              <p className="text-gray-600 mb-4">Could not identify the product with barcode: {scannedCode}</p>
-              <Button onClick={scanAgain}>Try Again</Button>
+            <Card className="p-6">
+              <div className="text-center mb-4">
+                <p className="text-gray-600 mb-2">Could not identify the product with barcode:</p>
+                <p className="font-mono bg-gray-100 p-2 rounded mb-4">{scannedCode}</p>
+                
+                <div className="flex flex-col gap-3 mt-6">
+                  <Button onClick={scanAgain}>
+                    Scan Another Barcode
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={createCustomFood}
+                  >
+                    Create Custom Food
+                  </Button>
+                </div>
+              </div>
             </Card>
           )}
         </div>

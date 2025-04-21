@@ -16,6 +16,7 @@ import WelcomeScreen from "./pages/WelcomeScreen";
 import LanguageSelection from "./pages/LanguageSelection";
 import AuthScreen from "./pages/AuthScreen";
 import BarcodeScannerPage from "./pages/BarcodeScanner";
+import CustomFoodPage from "./pages/CustomFoodPage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/food/:id" element={<FoodDetail />} />
           <Route path="/camera" element={<CameraPage />} />
           <Route path="/barcode" element={<BarcodeScannerPage />} />
+          <Route path="/add-custom-food" element={<CustomFoodPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
