@@ -19,6 +19,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+const CATEGORIES = ["Fruit", "Vegetable", "Protein", "Grain", "Dairy", "Nuts", "Other"];
+
 interface FoodEntryFormProps {
   open: boolean;
   onClose: () => void;
@@ -44,6 +46,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
     servingSize: defaultValues?.servingSize || '',
     quantity: defaultValues?.quantity || 1,
     mealType: (defaultValues?.mealType || 'breakfast') as MealType,
+    category: defaultValues?.category || 'Other'
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,9 +64,33 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
     }));
   };
 
+  const handleCategoryChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      category: value
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddFood(formData);
+    onAddFood({
+      name: formData.name,
+      calories: formData.calories,
+      protein: formData.protein,
+      carbs: formData.carbs,
+      fat: formData.fat,
+      fiber: formData.fiber,
+      sugars: formData.sugars,
+      sodium: formData.sodium,
+      calcium: formData.calcium,
+      iron: formData.iron,
+      vitaminC: formData.vitaminC,
+      serving: formData.serving || "-",
+      servingSize: formData.servingSize || "-",
+      quantity: formData.quantity,
+      mealType: formData.mealType,
+      category: formData.category,
+    });
     setFormData({
       name: '',
       calories: 0,
@@ -80,6 +107,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
       servingSize: '',
       quantity: 1,
       mealType: 'breakfast',
+      category: 'Other'
     });
     onClose();
   };
@@ -116,7 +144,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
                 required
               />
             </div>
-            
+
             <div>
               <Label htmlFor="serving">Serving Size</Label>
               <Input 
@@ -140,7 +168,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
                 required
               />
             </div>
-            
+
             <div>
               <Label htmlFor="protein">Protein (g)</Label>
               <Input 
@@ -176,7 +204,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
                 placeholder="0" 
               />
             </div>
-            
+
             <div>
               <Label htmlFor="fiber">Fiber (g)</Label>
               <Input 
@@ -212,7 +240,43 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
                 placeholder="0" 
               />
             </div>
-            
+
+            <div>
+              <Label htmlFor="calcium">Calcium (mg)</Label>
+              <Input 
+                id="calcium" 
+                name="calcium" 
+                type="number" 
+                value={formData.calcium || ''} 
+                onChange={handleChange}
+                placeholder="0" 
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="iron">Iron (mg)</Label>
+              <Input 
+                id="iron" 
+                name="iron" 
+                type="number" 
+                value={formData.iron || ''} 
+                onChange={handleChange}
+                placeholder="0" 
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="vitaminC">Vitamin C (mg)</Label>
+              <Input 
+                id="vitaminC" 
+                name="vitaminC" 
+                type="number" 
+                value={formData.vitaminC || ''} 
+                onChange={handleChange}
+                placeholder="0" 
+              />
+            </div>
+
             <div>
               <Label htmlFor="mealType">Meal Type</Label>
               <Select value={formData.mealType} onValueChange={handleMealTypeChange}>
@@ -227,6 +291,21 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
                 </SelectContent>
               </Select>
             </div>
+
+            <div>
+              <Label htmlFor="category">Category</Label>
+              <Select value={formData.category} onValueChange={handleCategoryChange}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES.map(cat => (
+                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
           </div>
           
           <DialogFooter>

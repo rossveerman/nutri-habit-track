@@ -213,5 +213,3 @@ export const CATEGORIES = [
   "Dairy",
   "Nuts",
 ];
-
-export const initialRecent = ["apple", "chicken", "rice"];
