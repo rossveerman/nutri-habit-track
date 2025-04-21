@@ -1,12 +1,13 @@
 
+// Fixed to remove import of non-existing 'initialRecent' from FoodDatabase
 import { useState, useMemo } from "react";
-import { MOCK_FOOD_DATABASE, CATEGORIES, initialRecent } from "@/components/FoodDatabase";
+import { MOCK_FOOD_DATABASE, CATEGORIES } from "@/components/FoodDatabase";
 import type { Food } from "@/types";
 
 export function useFoodSearch() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-  const [recentSearches, setRecentSearches] = useState<string[]>(initialRecent);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]); // Empty initial recent
 
   const filteredFoods: Food[] = useMemo(() => {
     let foods = MOCK_FOOD_DATABASE;
@@ -46,3 +47,4 @@ export function useFoodSearch() {
     handleClear,
   };
 }
+

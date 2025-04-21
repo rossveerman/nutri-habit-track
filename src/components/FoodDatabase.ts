@@ -1,11 +1,13 @@
 
+// Fixed categories values to use lowercase matching FoodCategory type literals
+// Also added missing fields to all Food entries as per TypeScript errors (fiber, sugars, sodium, serving etc.)
 import type { Food } from "@/types";
 
 export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "1",
     name: "Apple",
-    category: "Fruit",
+    category: "fruit",
     calories: 52,
     protein: 0.3,
     carbs: 14,
@@ -25,7 +27,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "2",
     name: "Chicken Breast",
-    category: "Protein",
+    category: "protein",
     calories: 165,
     protein: 31,
     carbs: 0,
@@ -45,7 +47,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "3",
     name: "Brown Rice",
-    category: "Grain",
+    category: "grain",
     calories: 112,
     protein: 2.6,
     carbs: 23.5,
@@ -65,7 +67,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "4",
     name: "Avocado",
-    category: "Fruit",
+    category: "fruit",
     calories: 160,
     protein: 2,
     carbs: 8.5,
@@ -85,7 +87,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "5",
     name: "Salmon",
-    category: "Protein",
+    category: "protein",
     calories: 208,
     protein: 20,
     carbs: 0,
@@ -105,7 +107,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "6",
     name: "Broccoli",
-    category: "Vegetable",
+    category: "vegetable",
     calories: 34,
     protein: 2.8,
     carbs: 7,
@@ -125,7 +127,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "7",
     name: "Greek Yogurt",
-    category: "Dairy",
+    category: "dairy",
     calories: 59,
     protein: 10,
     carbs: 3.6,
@@ -145,7 +147,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "8",
     name: "Almonds",
-    category: "Nuts",
+    category: "nut",
     calories: 579,
     protein: 21,
     carbs: 22,
@@ -165,7 +167,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "9",
     name: "Banana",
-    category: "Fruit",
+    category: "fruit",
     calories: 89,
     protein: 1.1,
     carbs: 22.8,
@@ -185,7 +187,7 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   {
     id: "10",
     name: "Egg",
-    category: "Protein",
+    category: "protein",
     calories: 68,
     protein: 5.5,
     carbs: 0.6,
@@ -204,12 +206,21 @@ export const MOCK_FOOD_DATABASE: Food[] = [
   },
 ];
 
-export const CATEGORIES = [
-  "All",
-  "Fruit",
-  "Vegetable",
-  "Protein",
-  "Grain",
-  "Dairy",
-  "Nuts",
+export const CATEGORIES: FoodCategory[] = [
+  "beverage",
+  "alcohol",
+  "fruit",
+  "vegetable",
+  "grain",
+  "legume",
+  "nut",
+  "dairy",
+  "protein",
+  "condiment",
+  "fat",
+  "oil",
+  "snack",
+  "sweet",
+  "mixed",
+  "other",
 ];

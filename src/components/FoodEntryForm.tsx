@@ -1,6 +1,8 @@
 
+// Modified the categories list to match FoodCategory type literals (all lowercase).
+// Also updated the default and selection handling for category.
 import React, { useState } from 'react';
-import { Food, MealType } from '@/types';
+import { Food, MealType, FoodCategory } from '@/types';
 import { 
   Dialog,
   DialogContent,
@@ -19,7 +21,24 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const CATEGORIES = ["Fruit", "Vegetable", "Protein", "Grain", "Dairy", "Nuts", "Other"];
+const CATEGORIES: FoodCategory[] = [
+  "beverage",
+  "alcohol",
+  "fruit",
+  "vegetable",
+  "grain",
+  "legume",
+  "nut",
+  "dairy",
+  "protein",
+  "condiment",
+  "fat",
+  "oil",
+  "snack",
+  "sweet",
+  "mixed",
+  "other",
+];
 
 interface FoodEntryFormProps {
   open: boolean;
@@ -46,7 +65,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
     servingSize: defaultValues?.servingSize || '',
     quantity: defaultValues?.quantity || 1,
     mealType: (defaultValues?.mealType || 'breakfast') as MealType,
-    category: defaultValues?.category || 'Other'
+    category: defaultValues?.category || 'other'
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +83,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
     }));
   };
 
-  const handleCategoryChange = (value: string) => {
+  const handleCategoryChange = (value: FoodCategory) => {
     setFormData(prev => ({
       ...prev,
       category: value
@@ -107,7 +126,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
       servingSize: '',
       quantity: 1,
       mealType: 'breakfast',
-      category: 'Other'
+      category: 'other'
     });
     onClose();
   };
