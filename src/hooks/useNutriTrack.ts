@@ -28,10 +28,18 @@ const sampleFoods: Food[] = [
     protein: 8,
     carbs: 45,
     fat: 6,
+    fiber: 7,
+    sugars: 12,
+    sodium: 15,
+    calcium: 170,
+    iron: 2.1,
+    vitaminC: 10,
+    serving: '1 bowl',
     servingSize: '1 bowl',
     quantity: 1,
     mealType: 'breakfast',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    category: 'Grain'
   },
   {
     id: '2',
@@ -40,10 +48,18 @@ const sampleFoods: Food[] = [
     protein: 30,
     carbs: 15,
     fat: 18,
+    fiber: 5,
+    sugars: 3,
+    sodium: 280,
+    calcium: 80,
+    iron: 2.5,
+    vitaminC: 45,
+    serving: '1 plate',
     servingSize: '1 plate',
     quantity: 1,
     mealType: 'lunch',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    category: 'Protein'
   },
   {
     id: '3',
@@ -52,10 +68,18 @@ const sampleFoods: Food[] = [
     protein: 32,
     carbs: 20,
     fat: 22,
+    fiber: 6,
+    sugars: 4,
+    sodium: 330,
+    calcium: 50,
+    iron: 1.8,
+    vitaminC: 30,
+    serving: '1 fillet',
     servingSize: '1 fillet',
     quantity: 1,
     mealType: 'dinner',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    category: 'Protein'
   },
   {
     id: '4',
@@ -64,10 +88,18 @@ const sampleFoods: Food[] = [
     protein: 15,
     carbs: 10,
     fat: 5,
+    fiber: 0,
+    sugars: 7,
+    sodium: 65,
+    calcium: 200,
+    iron: 0.2,
+    vitaminC: 0,
+    serving: '1 cup',
     servingSize: '1 cup',
     quantity: 1,
     mealType: 'snack',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    category: 'Dairy'
   }
 ];
 

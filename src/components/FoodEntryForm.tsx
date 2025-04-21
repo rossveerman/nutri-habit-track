@@ -23,25 +23,34 @@ interface FoodEntryFormProps {
   open: boolean;
   onClose: () => void;
   onAddFood: (food: Omit<Food, 'id' | 'timestamp'>) => void;
+  defaultValues?: Partial<Food>;
+  key?: string;
 }
 
-export function FoodEntryForm({ open, onClose, onAddFood }: FoodEntryFormProps) {
+export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodEntryFormProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    calories: 0,
-    protein: 0,
-    carbs: 0,
-    fat: 0,
-    servingSize: '',
-    quantity: 1,
-    mealType: 'breakfast' as MealType,
+    name: defaultValues?.name || '',
+    calories: defaultValues?.calories || 0,
+    protein: defaultValues?.protein || 0,
+    carbs: defaultValues?.carbs || 0,
+    fat: defaultValues?.fat || 0,
+    fiber: defaultValues?.fiber || 0,
+    sugars: defaultValues?.sugars || 0,
+    sodium: defaultValues?.sodium || 0,
+    calcium: defaultValues?.calcium || 0,
+    iron: defaultValues?.iron || 0,
+    vitaminC: defaultValues?.vitaminC || 0,
+    serving: defaultValues?.serving || '',
+    servingSize: defaultValues?.servingSize || '',
+    quantity: defaultValues?.quantity || 1,
+    mealType: (defaultValues?.mealType || 'breakfast') as MealType,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'name' || name === 'servingSize' ? value : Number(value)
+      [name]: name === 'name' || name === 'servingSize' || name === 'serving' ? value : Number(value)
     }));
   };
 
@@ -61,6 +70,13 @@ export function FoodEntryForm({ open, onClose, onAddFood }: FoodEntryFormProps) 
       protein: 0,
       carbs: 0,
       fat: 0,
+      fiber: 0,
+      sugars: 0,
+      sodium: 0,
+      calcium: 0, 
+      iron: 0,
+      vitaminC: 0,
+      serving: '',
       servingSize: '',
       quantity: 1,
       mealType: 'breakfast',
@@ -102,7 +118,19 @@ export function FoodEntryForm({ open, onClose, onAddFood }: FoodEntryFormProps) 
             </div>
             
             <div>
-              <Label htmlFor="servingSize">Serving Size</Label>
+              <Label htmlFor="serving">Serving Size</Label>
+              <Input 
+                id="serving" 
+                name="serving" 
+                value={formData.serving} 
+                onChange={handleChange}
+                placeholder="e.g., 100g or 1 cup" 
+                required
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="servingSize">Serving Description</Label>
               <Input 
                 id="servingSize" 
                 name="servingSize" 
@@ -144,6 +172,42 @@ export function FoodEntryForm({ open, onClose, onAddFood }: FoodEntryFormProps) 
                 name="fat" 
                 type="number" 
                 value={formData.fat || ''} 
+                onChange={handleChange}
+                placeholder="0" 
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="fiber">Fiber (g)</Label>
+              <Input 
+                id="fiber" 
+                name="fiber" 
+                type="number" 
+                value={formData.fiber || ''} 
+                onChange={handleChange}
+                placeholder="0" 
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="sugars">Sugars (g)</Label>
+              <Input 
+                id="sugars" 
+                name="sugars" 
+                type="number" 
+                value={formData.sugars || ''} 
+                onChange={handleChange}
+                placeholder="0" 
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="sodium">Sodium (mg)</Label>
+              <Input 
+                id="sodium" 
+                name="sodium" 
+                type="number" 
+                value={formData.sodium || ''} 
                 onChange={handleChange}
                 placeholder="0" 
               />
