@@ -1,8 +1,9 @@
-import { FoodFull } from "../FoodDatabaseFull";
 
-export const FRUITS: FoodFull[] = [
+import { Food, generateId } from "../types";
+
+export const FRUITS: Food[] = [
   {
-    id: "13",
+    id: generateId("frt", 1),
     name: "Apple (with skin)",
     serving: "1 medium (182 g)",
     calories: 95,
@@ -15,10 +16,10 @@ export const FRUITS: FoodFull[] = [
     calcium: 11,
     iron: 0.2,
     vitC: 8.4,
-    category: "fruit"
+    category: "fruit",
   },
   {
-    id: "14",
+    id: generateId("frt", 2),
     name: "Banana",
     serving: "1 medium (118 g)",
     calories: 105,
@@ -31,10 +32,10 @@ export const FRUITS: FoodFull[] = [
     calcium: 6,
     iron: 0.3,
     vitC: 10,
-    category: "fruit"
+    category: "fruit",
   },
   {
-    id: "15",
+    id: generateId("frt", 3),
     name: "Orange",
     serving: "1 medium (154 g)",
     calories: 72,
@@ -47,10 +48,10 @@ export const FRUITS: FoodFull[] = [
     calcium: 62,
     iron: 0.1,
     vitC: 77,
-    category: "fruit"
+    category: "fruit",
   },
   {
-    id: "16",
+    id: generateId("frt", 4),
     name: "Grapes",
     serving: "1 cup (92 g)",
     calories: 62,
@@ -63,10 +64,10 @@ export const FRUITS: FoodFull[] = [
     calcium: 15,
     iron: 0.3,
     vitC: 4,
-    category: "fruit"
+    category: "fruit",
   },
   {
-    id: "17",
+    id: generateId("frt", 5),
     name: "Strawberries",
     serving: "1 cup, halves (152 g)",
     calories: 49,
@@ -79,10 +80,10 @@ export const FRUITS: FoodFull[] = [
     calcium: 23,
     iron: 0.4,
     vitC: 89,
-    category: "fruit"
+    category: "fruit",
   },
   {
-    id: "18",
+    id: generateId("frt", 6),
     name: "Blueberries",
     serving: "1 cup (148 g)",
     calories: 84,
@@ -95,10 +96,10 @@ export const FRUITS: FoodFull[] = [
     calcium: 9,
     iron: 0.4,
     vitC: 14,
-    category: "fruit"
+    category: "fruit",
   },
   {
-    id: "19",
+    id: generateId("frt", 7),
     name: "Peach",
     serving: "1 medium (150 g)",
     calories: 59,
@@ -111,10 +112,10 @@ export const FRUITS: FoodFull[] = [
     calcium: 9,
     iron: 0.3,
     vitC: 10,
-    category: "fruit"
+    category: "fruit",
   },
   {
-    id: "20",
+    id: generateId("frt", 8),
     name: "Pineapple",
     serving: "1 cup, chunks (165 g)",
     calories: 83,
@@ -127,6 +128,8 @@ export const FRUITS: FoodFull[] = [
     calcium: 20,
     iron: 0.4,
     vitC: 79,
-    category: "fruit"
+    category: "fruit",
   },
 ];
+
+export default FRUITS;

@@ -1,9 +1,9 @@
 
-import { FoodFull } from "../FoodDatabaseFull";
+import { Food, generateId } from "../types";
 
-export const DAIRY: FoodFull[] = [
+export const DAIRY: Food[] = [
   {
-    id: "201",
+    id: generateId("dairy", 1),
     name: "Milk, whole",
     serving: "1 cup (244 g)",
     calories: 149,
@@ -16,10 +16,10 @@ export const DAIRY: FoodFull[] = [
     calcium: 276,
     iron: 0,
     vitC: 0,
-    category: "dairy"
+    category: "dairy",
   },
   {
-    id: "202",
+    id: generateId("dairy", 2),
     name: "Cheddar cheese",
     serving: "1 slice (28 g)",
     calories: 113,
@@ -32,10 +32,10 @@ export const DAIRY: FoodFull[] = [
     calcium: 199,
     iron: 0.2,
     vitC: 0,
-    category: "dairy"
+    category: "dairy",
   },
   {
-    id: "203",
+    id: generateId("dairy", 3),
     name: "Yogurt, plain",
     serving: "1 cup (245 g)",
     calories: 150,
@@ -43,11 +43,13 @@ export const DAIRY: FoodFull[] = [
     carbs: 11.5,
     fiber: 0,
     sugars: 11.5,
-    fat: 8.0,
+    fat: 8,
     sodium: 113,
     calcium: 296,
     iron: 0.1,
     vitC: 1,
-    category: "dairy"
+    category: "dairy",
   },
 ];
+
+export default DAIRY;

@@ -1,9 +1,9 @@
 
-import { FoodFull } from "../FoodDatabaseFull";
+import { Food, generateId } from "../types";
 
-export const SNACKS_SWEETS: FoodFull[] = [
+export const SNACKS_SWEETS: Food[] = [
   {
-    id: "401",
+    id: generateId("snack", 1),
     name: "Potato chips",
     serving: "1 oz (28 g)",
     calories: 150,
@@ -16,10 +16,10 @@ export const SNACKS_SWEETS: FoodFull[] = [
     calcium: 7,
     iron: 0.4,
     vitC: 9,
-    category: "snack"
+    category: "snack",
   },
   {
-    id: "402",
+    id: generateId("sweet", 2),
     name: "Chocolate bar (milk)",
     serving: "1 bar (44 g)",
     calories: 235,
@@ -32,10 +32,10 @@ export const SNACKS_SWEETS: FoodFull[] = [
     calcium: 83,
     iron: 1.1,
     vitC: 0,
-    category: "sweet"
+    category: "sweet",
   },
   {
-    id: "403",
+    id: generateId("sweet", 3),
     name: "Cookies (choc chip)",
     serving: "~2 cookies (30 g)",
     calories: 146,
@@ -48,7 +48,8 @@ export const SNACKS_SWEETS: FoodFull[] = [
     calcium: 4,
     iron: 0.3,
     vitC: 0,
-    category: "sweet"
+    category: "sweet",
   },
-  // If there are more, categorize as snack or sweet appropriately
 ];
+
+export default SNACKS_SWEETS;

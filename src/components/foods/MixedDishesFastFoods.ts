@@ -1,9 +1,9 @@
 
-import { FoodFull } from "../FoodDatabaseFull";
+import { Food, generateId } from "../types";
 
-export const MIXED_DISHES_FAST_FOODS: FoodFull[] = [
+export const MIXED_DISHES_FAST_FOODS: Food[] = [
   {
-    id: "601",
+    id: generateId("mixed", 1),
     name: "McDonald’s Big Mac",
     serving: "1 burger (219 g)",
     calories: 563,
@@ -16,26 +16,26 @@ export const MIXED_DISHES_FAST_FOODS: FoodFull[] = [
     calcium: 254,
     iron: 4.4,
     vitC: 0.9,
-    category: "mixed"
+    category: "mixed",
   },
   {
-    id: "602",
+    id: generateId("mixed", 2),
     name: "Pepperoni pizza (fast-food)",
     serving: "1 large slice (107 g)",
     calories: 317,
     protein: 12.9,
     carbs: 35.3,
-    fiber: 2.0,
+    fiber: 2,
     sugars: 3.8,
     fat: 12.8,
     sodium: 684,
     calcium: 201,
     iron: 2.7,
     vitC: 1.2,
-    category: "mixed"
+    category: "mixed",
   },
   {
-    id: "603",
+    id: generateId("mixed", 3),
     name: "Spaghetti with meat sauce",
     serving: "1 cup (256 g)",
     calories: 320,
@@ -48,6 +48,8 @@ export const MIXED_DISHES_FAST_FOODS: FoodFull[] = [
     calcium: 50,
     iron: 2.5,
     vitC: 6,
-    category: "mixed"
+    category: "mixed",
   },
 ];
+
+export default MIXED_DISHES_FAST_FOODS;

@@ -1,9 +1,9 @@
 
-import { FoodFull } from "../FoodDatabaseFull";
+import { Food, generateId } from "../types";
 
-export const FATS_OILS_CONDIMENTS: FoodFull[] = [
+export const FATS_OILS_CONDIMENTS: Food[] = [
   {
-    id: "301",
+    id: generateId("oil", 1),
     name: "Olive oil",
     serving: "1 Tbsp (13.5 g)",
     calories: 119,
@@ -16,10 +16,10 @@ export const FATS_OILS_CONDIMENTS: FoodFull[] = [
     calcium: 1,
     iron: 0,
     vitC: 0,
-    category: "oil"
+    category: "oil",
   },
   {
-    id: "302",
+    id: generateId("fat", 2),
     name: "Butter (salted)",
     serving: "1 Tbsp (14 g)",
     calories: 100,
@@ -32,10 +32,10 @@ export const FATS_OILS_CONDIMENTS: FoodFull[] = [
     calcium: 3,
     iron: 0,
     vitC: 0,
-    category: "fat"
+    category: "fat",
   },
   {
-    id: "303",
+    id: generateId("cond", 3),
     name: "Ketchup",
     serving: "1 Tbsp (17 g)",
     calories: 19,
@@ -48,7 +48,8 @@ export const FATS_OILS_CONDIMENTS: FoodFull[] = [
     calcium: 3,
     iron: 0,
     vitC: 1,
-    category: "condiment"
+    category: "condiment",
   },
-  // Add other items and split accordingly: oils, fats, condiments (e.g. margarine, mayonnaise, salad dressing, etc.)
 ];
+
+export default FATS_OILS_CONDIMENTS;

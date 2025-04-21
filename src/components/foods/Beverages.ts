@@ -1,9 +1,9 @@
 
-import { FoodFull } from "../FoodDatabaseFull";
+import { Food, generateId } from "../types";
 
-export const BEVERAGES: FoodFull[] = [
+export const BEVERAGES: Food[] = [
   {
-    id: "1",
+    id: generateId("bev", 1),
     name: "Water, plain",
     serving: "1 cup (240 ml)",
     calories: 0,
@@ -16,10 +16,10 @@ export const BEVERAGES: FoodFull[] = [
     calcium: 0,
     iron: 0,
     vitC: 0,
-    category: "beverage"
+    category: "beverage",
   },
   {
-    id: "2",
+    id: generateId("bev", 2),
     name: "Coffee, black",
     serving: "1 cup (240 ml)",
     calories: 2,
@@ -32,10 +32,10 @@ export const BEVERAGES: FoodFull[] = [
     calcium: 5,
     iron: 0,
     vitC: 0,
-    category: "beverage"
+    category: "beverage",
   },
   {
-    id: "3",
+    id: generateId("bev", 3),
     name: "Tea, black",
     serving: "1 cup (240 ml)",
     calories: 2,
@@ -48,10 +48,10 @@ export const BEVERAGES: FoodFull[] = [
     calcium: 0,
     iron: 0,
     vitC: 0,
-    category: "beverage"
+    category: "beverage",
   },
   {
-    id: "4",
+    id: generateId("bev", 4),
     name: "Soda (Cola, reg.)",
     serving: "12 oz can (355 ml)",
     calories: 140,
@@ -64,10 +64,10 @@ export const BEVERAGES: FoodFull[] = [
     calcium: 2,
     iron: 0,
     vitC: 0,
-    category: "beverage"
+    category: "beverage",
   },
   {
-    id: "5",
+    id: generateId("bev", 5),
     name: "Diet Cola (no sugar)",
     serving: "12 oz can (355 ml)",
     calories: 1,
@@ -80,10 +80,10 @@ export const BEVERAGES: FoodFull[] = [
     calcium: 0,
     iron: 0,
     vitC: 0,
-    category: "beverage"
+    category: "beverage",
   },
   {
-    id: "6",
+    id: generateId("bev", 6),
     name: "Orange juice",
     serving: "8 oz glass (240 ml)",
     calories: 112,
@@ -96,10 +96,10 @@ export const BEVERAGES: FoodFull[] = [
     calcium: 20,
     iron: 0.5,
     vitC: 124,
-    category: "beverage"
+    category: "beverage",
   },
   {
-    id: "7",
+    id: generateId("bev", 7),
     name: "Apple juice",
     serving: "8 oz glass (240 ml)",
     calories: 113,
@@ -112,6 +112,9 @@ export const BEVERAGES: FoodFull[] = [
     calcium: 20,
     iron: 0.2,
     vitC: 0,
-    category: "beverage"
+    category: "beverage",
   },
 ];
+
+export default BEVERAGES;
+

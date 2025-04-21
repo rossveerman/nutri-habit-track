@@ -1,9 +1,9 @@
 
-import { FoodFull } from "../FoodDatabaseFull";
+import { Food, generateId } from "../types";
 
-export const PROTEIN_FOODS: FoodFull[] = [
+export const PROTEIN_FOODS: Food[] = [
   {
-    id: "501",
+    id: generateId("protein", 1),
     name: "Chicken breast (roasted)",
     serving: "1/2 breast (86 g)",
     calories: 142,
@@ -16,10 +16,10 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 5,
     iron: 0.5,
     vitC: 0,
-    category: "protein"
+    category: "protein",
   },
   {
-    id: "502",
+    id: generateId("protein", 2),
     name: "Beef, ground (80% lean)",
     serving: "1 patty (113 g)",
     calories: 288,
@@ -32,10 +32,10 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 6,
     iron: 2.9,
     vitC: 0,
-    category: "protein"
+    category: "protein",
   },
   {
-    id: "503",
+    id: generateId("protein", 3),
     name: "Egg, whole (boiled)",
     serving: "1 large (50 g)",
     calories: 78,
@@ -48,10 +48,10 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 25,
     iron: 0.6,
     vitC: 0,
-    category: "protein"
+    category: "protein",
   },
   {
-    id: "504",
+    id: generateId("protein", 4),
     name: "Tofu, firm",
     serving: "~1/2 cup (100 g)",
     calories: 76,
@@ -64,10 +64,10 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 350,
     iron: 5.4,
     vitC: 0,
-    category: "protein"
+    category: "protein",
   },
   {
-    id: "505",
+    id: generateId("nut", 5),
     name: "Almonds",
     serving: "1 oz (28 g)",
     calories: 162,
@@ -78,8 +78,10 @@ export const PROTEIN_FOODS: FoodFull[] = [
     fat: 14,
     sodium: 1,
     calcium: 75,
-    iron: 1.0,
+    iron: 1,
     vitC: 0,
-    category: "nut"
+    category: "nut",
   },
 ];
+
+export default PROTEIN_FOODS;

@@ -1,9 +1,9 @@
 
-import { FoodFull } from "../FoodDatabaseFull";
+import { Food, generateId } from "../types";
 
-export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
+export const ALCOHOLIC_BEVERAGES: Food[] = [
   {
-    id: "8",
+    id: generateId("alc", 1),
     name: "Beer, regular",
     serving: "12 oz (355 ml)",
     calories: 153,
@@ -16,10 +16,10 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 14,
     iron: 0.01,
     vitC: 0,
-    category: "alcohol"
+    category: "alcohol",
   },
   {
-    id: "9",
+    id: generateId("alc", 2),
     name: "Beer, light",
     serving: "12 oz (355 ml)",
     calories: 104,
@@ -32,10 +32,10 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 7,
     iron: 0,
     vitC: 0,
-    category: "alcohol"
+    category: "alcohol",
   },
   {
-    id: "10",
+    id: generateId("alc", 3),
     name: "Red wine",
     serving: "5 oz (148 ml)",
     calories: 125,
@@ -48,10 +48,10 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 12,
     iron: 0.5,
     vitC: 0,
-    category: "alcohol"
+    category: "alcohol",
   },
   {
-    id: "11",
+    id: generateId("alc", 4),
     name: "White wine",
     serving: "5 oz (148 ml)",
     calories: 121,
@@ -64,10 +64,10 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 9,
     iron: 0.3,
     vitC: 0,
-    category: "alcohol"
+    category: "alcohol",
   },
   {
-    id: "12",
+    id: generateId("alc", 5),
     name: "Whiskey (40% ABV)",
     serving: "1.5 oz (44 ml)",
     calories: 97,
@@ -80,6 +80,8 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 0,
     iron: 0,
     vitC: 0,
-    category: "alcohol"
+    category: "alcohol",
   },
 ];
+
+export default ALCOHOLIC_BEVERAGES;
