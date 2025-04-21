@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Food, MealType, FoodCategory } from '@/types';
 import { 
@@ -66,6 +65,9 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
     category: (defaultValues?.category || 'other') as FoodCategory
   });
 
+  const [adding, setAdding] = useState(false);
+  const [showCheck, setShowCheck] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -90,43 +92,52 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddFood({
-      name: formData.name,
-      calories: formData.calories,
-      protein: formData.protein,
-      carbs: formData.carbs,
-      fat: formData.fat,
-      fiber: formData.fiber,
-      sugars: formData.sugars,
-      sodium: formData.sodium,
-      calcium: formData.calcium,
-      iron: formData.iron,
-      vitaminC: formData.vitaminC,
-      serving: formData.serving || "-",
-      servingSize: formData.servingSize || "-",
-      quantity: formData.quantity,
-      mealType: formData.mealType,
-      category: formData.category,
-    });
-    setFormData({
-      name: '',
-      calories: 0,
-      protein: 0,
-      carbs: 0,
-      fat: 0,
-      fiber: 0,
-      sugars: 0,
-      sodium: 0,
-      calcium: 0, 
-      iron: 0,
-      vitaminC: 0,
-      serving: '',
-      servingSize: '',
-      quantity: 1,
-      mealType: 'breakfast',
-      category: 'other'
-    });
-    onClose();
+    setAdding(true);
+
+    setTimeout(() => {
+      onAddFood({
+        name: formData.name,
+        calories: formData.calories,
+        protein: formData.protein,
+        carbs: formData.carbs,
+        fat: formData.fat,
+        fiber: formData.fiber,
+        sugars: formData.sugars,
+        sodium: formData.sodium,
+        calcium: formData.calcium,
+        iron: formData.iron,
+        vitaminC: formData.vitaminC,
+        serving: formData.serving || "-",
+        servingSize: formData.servingSize || "-",
+        quantity: formData.quantity,
+        mealType: formData.mealType,
+        category: formData.category,
+      });
+      setFormData({
+        name: '',
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0,
+        fiber: 0,
+        sugars: 0,
+        sodium: 0, 
+        calcium: 0,
+        iron: 0,
+        vitaminC: 0,
+        serving: '',
+        servingSize: '',
+        quantity: 1,
+        mealType: 'breakfast',
+        category: 'other'
+      });
+      setShowCheck(true);
+      setAdding(false);
+      setTimeout(() => {
+        setShowCheck(false);
+        onClose();
+      }, 1100); // Enough time for checkmark to show
+    }, 130); // Animation duration (matches scale in button)
   };
 
   return (
@@ -326,12 +337,74 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
           </div>
           
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={adding}
+              className={adding ? "opacity-80 pointer-events-none" : ""}
+            >
               Cancel
             </Button>
-            <Button type="submit" className="bg-nutritrack-teal hover:bg-nutritrack-teal/90">
-              Add Food
-            </Button>
+            <div className="relative inline-flex items-center">
+              <Button
+                type="submit"
+                className={
+                  "bg-nutritrack-teal hover:bg-nutritrack-teal/90 transition-transform duration-150 " +
+                  (adding ? "scale-95" : "scale-100")
+                }
+                style={{
+                  transition: "transform 0.15s cubic-bezier(.68,-0.55,.27,1.55)"
+                }}
+                disabled={adding}
+              >
+                Add Food
+              </Button>
+              {showCheck && (
+                <span
+                  className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center animate-fade-in"
+                  style={{ pointerEvents: "none" }}
+                >
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    stroke="#38B2AC"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                      background: "white",
+                      borderRadius: "999px",
+                      boxShadow: "0 1px 6px rgba(56,178,172,0.13)",
+                      marginLeft: "4px",
+                      animation: "scale-in 0.3s cubic-bezier(.58,1.7,.36,.95)"
+                    }}
+                  >
+                    <circle
+                      cx="16"
+                      cy="16"
+                      r="15"
+                      stroke="#e6fffa"
+                      strokeWidth="3"
+                      fill="#fff"
+                    />
+                    <polyline
+                      points="10 17 15 22 22 11"
+                      stroke="#38B2AC"
+                      strokeWidth="3"
+                      fill="none"
+                      style={{
+                        strokeDasharray: 20,
+                        strokeDashoffset: showCheck ? 0 : 20,
+                        transition: "stroke-dashoffset 0.25s ease"
+                      }}
+                    />
+                  </svg>
+                </span>
+              )}
+            </div>
           </DialogFooter>
         </form>
       </DialogContent>
