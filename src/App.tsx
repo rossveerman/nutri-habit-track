@@ -15,6 +15,7 @@ import SplashScreen from "./pages/SplashScreen";
 import WelcomeScreen from "./pages/WelcomeScreen";
 import LanguageSelection from "./pages/LanguageSelection";
 import AuthScreen from "./pages/AuthScreen";
+import BarcodeScannerPage from "./pages/BarcodeScanner";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/profile" element={<Layout />} />
           <Route path="/food/:id" element={<FoodDetail />} />
           <Route path="/camera" element={<CameraPage />} />
+          <Route path="/barcode" element={<BarcodeScannerPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

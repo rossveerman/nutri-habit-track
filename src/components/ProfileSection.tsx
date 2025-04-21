@@ -21,8 +21,10 @@ const ProfileSection: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20 px-4 pt-5 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold mb-2">My Profile</h1>
+      
+      {/* Moved StreakCalendar to the top of the page */}
       <div className="mb-7">
-        <h1 className="text-2xl font-bold mb-2">My Profile</h1>
         <StreakCalendar
           streakDays={streakDays}
           daysToShow={7}
