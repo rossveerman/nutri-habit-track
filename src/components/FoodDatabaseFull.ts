@@ -1,18 +1,9 @@
 
-export interface FoodFull {
-  id: string;
-  name: string;
-  serving: string;
-  calories: number;
-  protein: number;
-  carbs: number;
-  fiber: number;
-  sugars: number;
-  fat: number;
-  sodium: number;
-  calcium: number;
-  iron: number;
-  vitC: number;
+import { Food } from "@/types";
+
+export interface FoodFull extends Food {
+  // Already includes all Food properties
+  vitC?: number;  // Alias for vitaminC for backward compatibility
 }
 
 import { BEVERAGES } from "./foods/Beverages";
@@ -41,4 +32,3 @@ export const FULL_FOOD_DATABASE: FoodFull[] = [
   ...MIXED_DISHES_FAST_FOODS,
   // Spread new arrays here if more groups are added
 ];
-
