@@ -1,4 +1,3 @@
-
 import { FoodFull } from "../FoodDatabaseFull";
 
 export const FRUITS: FoodFull[] = [
@@ -16,6 +15,7 @@ export const FRUITS: FoodFull[] = [
     calcium: 11,
     iron: 0.2,
     vitC: 8.4,
+    category: "fruit"
   },
   {
     id: "14",
@@ -31,6 +31,7 @@ export const FRUITS: FoodFull[] = [
     calcium: 6,
     iron: 0.3,
     vitC: 10,
+    category: "fruit"
   },
   {
     id: "15",
@@ -46,7 +47,86 @@ export const FRUITS: FoodFull[] = [
     calcium: 62,
     iron: 0.1,
     vitC: 77,
+    category: "fruit"
   },
-  // ... Copy additional fruit items here from the previous list.
+  {
+    id: "16",
+    name: "Grapes",
+    serving: "1 cup (92 g)",
+    calories: 62,
+    protein: 0.6,
+    carbs: 16,
+    fiber: 0.8,
+    sugars: 15,
+    fat: 0.3,
+    sodium: 2,
+    calcium: 15,
+    iron: 0.3,
+    vitC: 4,
+    category: "fruit"
+  },
+  {
+    id: "17",
+    name: "Strawberries",
+    serving: "1 cup, halves (152 g)",
+    calories: 49,
+    protein: 1,
+    carbs: 12,
+    fiber: 3,
+    sugars: 7,
+    fat: 0.3,
+    sodium: 1,
+    calcium: 23,
+    iron: 0.4,
+    vitC: 89,
+    category: "fruit"
+  },
+  {
+    id: "18",
+    name: "Blueberries",
+    serving: "1 cup (148 g)",
+    calories: 84,
+    protein: 1.1,
+    carbs: 21,
+    fiber: 3.6,
+    sugars: 15,
+    fat: 0.5,
+    sodium: 1,
+    calcium: 9,
+    iron: 0.4,
+    vitC: 14,
+    category: "fruit"
+  },
+  {
+    id: "19",
+    name: "Peach",
+    serving: "1 medium (150 g)",
+    calories: 59,
+    protein: 1.4,
+    carbs: 15,
+    fiber: 2.3,
+    sugars: 13,
+    fat: 0.4,
+    sodium: 0,
+    calcium: 9,
+    iron: 0.3,
+    vitC: 10,
+    category: "fruit"
+  },
+  {
+    id: "20",
+    name: "Pineapple",
+    serving: "1 cup, chunks (165 g)",
+    calories: 83,
+    protein: 0.9,
+    carbs: 22,
+    fiber: 2.3,
+    sugars: 16,
+    fat: 0.2,
+    sodium: 2,
+    calcium: 20,
+    iron: 0.4,
+    vitC: 79,
+    category: "fruit"
+  },
 ];
-

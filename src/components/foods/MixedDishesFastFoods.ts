@@ -16,6 +16,7 @@ export const MIXED_DISHES_FAST_FOODS: FoodFull[] = [
     calcium: 254,
     iron: 4.4,
     vitC: 0.9,
+    category: "mixed"
   },
   {
     id: "602",
@@ -31,6 +32,7 @@ export const MIXED_DISHES_FAST_FOODS: FoodFull[] = [
     calcium: 201,
     iron: 2.7,
     vitC: 1.2,
+    category: "mixed"
   },
   {
     id: "603",
@@ -46,5 +48,6 @@ export const MIXED_DISHES_FAST_FOODS: FoodFull[] = [
     calcium: 50,
     iron: 2.5,
     vitC: 6,
+    category: "mixed"
   },
 ];

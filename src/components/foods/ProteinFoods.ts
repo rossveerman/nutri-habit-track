@@ -16,6 +16,7 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 5,
     iron: 0.5,
     vitC: 0,
+    category: "protein"
   },
   {
     id: "502",
@@ -31,6 +32,7 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 6,
     iron: 2.9,
     vitC: 0,
+    category: "protein"
   },
   {
     id: "503",
@@ -46,6 +48,7 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 25,
     iron: 0.6,
     vitC: 0,
+    category: "protein"
   },
   {
     id: "504",
@@ -61,6 +64,7 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 350,
     iron: 5.4,
     vitC: 0,
+    category: "protein"
   },
   {
     id: "505",
@@ -76,5 +80,6 @@ export const PROTEIN_FOODS: FoodFull[] = [
     calcium: 75,
     iron: 1.0,
     vitC: 0,
+    category: "nut"
   },
 ];

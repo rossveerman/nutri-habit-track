@@ -16,6 +16,7 @@ export const SNACKS_SWEETS: FoodFull[] = [
     calcium: 7,
     iron: 0.4,
     vitC: 9,
+    category: "snack"
   },
   {
     id: "402",
@@ -31,6 +32,7 @@ export const SNACKS_SWEETS: FoodFull[] = [
     calcium: 83,
     iron: 1.1,
     vitC: 0,
+    category: "sweet"
   },
   {
     id: "403",
@@ -46,5 +48,7 @@ export const SNACKS_SWEETS: FoodFull[] = [
     calcium: 4,
     iron: 0.3,
     vitC: 0,
+    category: "sweet"
   },
+  // If there are more, categorize as snack or sweet appropriately
 ];

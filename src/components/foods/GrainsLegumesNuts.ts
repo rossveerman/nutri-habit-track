@@ -16,7 +16,7 @@ export const GRAINS_LEGUMES_NUTS: FoodFull[] = [
     calcium: 16,
     iron: 1.9,
     vitC: 0,
+    category: "grain"
   },
-  // ... Copy additional grains/legumes/nuts items here from the previous list.
+  // ... for additional items, use appropriate categories: "grain", "legume" or "nut"
 ];
-

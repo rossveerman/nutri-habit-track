@@ -16,6 +16,7 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 14,
     iron: 0.01,
     vitC: 0,
+    category: "alcohol"
   },
   {
     id: "9",
@@ -31,6 +32,7 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 7,
     iron: 0,
     vitC: 0,
+    category: "alcohol"
   },
   {
     id: "10",
@@ -46,6 +48,7 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 12,
     iron: 0.5,
     vitC: 0,
+    category: "alcohol"
   },
   {
     id: "11",
@@ -61,6 +64,7 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 9,
     iron: 0.3,
     vitC: 0,
+    category: "alcohol"
   },
   {
     id: "12",
@@ -76,6 +80,6 @@ export const ALCOHOLIC_BEVERAGES: FoodFull[] = [
     calcium: 0,
     iron: 0,
     vitC: 0,
+    category: "alcohol"
   },
 ];
-

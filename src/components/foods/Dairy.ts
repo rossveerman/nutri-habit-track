@@ -16,6 +16,7 @@ export const DAIRY: FoodFull[] = [
     calcium: 276,
     iron: 0,
     vitC: 0,
+    category: "dairy"
   },
   {
     id: "202",
@@ -31,6 +32,7 @@ export const DAIRY: FoodFull[] = [
     calcium: 199,
     iron: 0.2,
     vitC: 0,
+    category: "dairy"
   },
   {
     id: "203",
@@ -46,5 +48,6 @@ export const DAIRY: FoodFull[] = [
     calcium: 296,
     iron: 0.1,
     vitC: 1,
+    category: "dairy"
   },
 ];

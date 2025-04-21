@@ -16,6 +16,7 @@ export const FATS_OILS_CONDIMENTS: FoodFull[] = [
     calcium: 1,
     iron: 0,
     vitC: 0,
+    category: "oil"
   },
   {
     id: "302",
@@ -31,6 +32,7 @@ export const FATS_OILS_CONDIMENTS: FoodFull[] = [
     calcium: 3,
     iron: 0,
     vitC: 0,
+    category: "fat"
   },
   {
     id: "303",
@@ -46,5 +48,7 @@ export const FATS_OILS_CONDIMENTS: FoodFull[] = [
     calcium: 3,
     iron: 0,
     vitC: 1,
+    category: "condiment"
   },
+  // Add other items and split accordingly: oils, fats, condiments (e.g. margarine, mayonnaise, salad dressing, etc.)
 ];

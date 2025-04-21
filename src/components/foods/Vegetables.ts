@@ -1,4 +1,3 @@
-
 import { FoodFull } from "../FoodDatabaseFull";
 
 export const VEGETABLES: FoodFull[] = [
@@ -16,6 +15,7 @@ export const VEGETABLES: FoodFull[] = [
     calcium: 12,
     iron: 0.4,
     vitC: 17,
+    category: "vegetable"
   },
   {
     id: "32",
@@ -31,7 +31,7 @@ export const VEGETABLES: FoodFull[] = [
     calcium: 17,
     iron: 1.2,
     vitC: 22,
+    category: "vegetable"
   },
   // ... Copy additional vegetable items here from the previous list.
 ];
-
