@@ -1,8 +1,9 @@
 
 import React from "react";
+import { FoodCategory } from "@/types";
 
 type CategoryTabsProps = {
-  categories: string[];
+  categories: (FoodCategory | "All")[];
   selected: string;
   setSelected: (cat: string) => void;
 };

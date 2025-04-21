@@ -1,3 +1,4 @@
+
 import React from "react";
 import FoodSearchBar from "./FoodSearchBar";
 import CategoryTabs from "./CategoryTabs";
@@ -6,6 +7,7 @@ import FoodList from "./FoodList";
 import AddCustomFoodButton from "./AddCustomFoodButton";
 import { CATEGORIES } from "./FoodDatabase";
 import { useFoodSearch } from "@/hooks/useFoodSearch";
+import { FoodCategory } from "@/types";
 
 const FoodSearch: React.FC = () => {
   const {
@@ -25,6 +27,9 @@ const FoodSearch: React.FC = () => {
   // Voice search (demo)
   const handleVoiceSearch = () => alert("Voice search coming soon!");
 
+  // Include "All" category
+  const allCategories: (FoodCategory | "All")[] = ["All", ...CATEGORIES];
+
   return (
     <div className="max-w-2xl mx-auto p-4 flex flex-col gap-4 animate-fade-in min-h-[80vh]">
       <FoodSearchBar
@@ -34,7 +39,7 @@ const FoodSearch: React.FC = () => {
         onScanBarcode={handleScanBarcode}
         onVoiceSearch={handleVoiceSearch}
       />
-      <CategoryTabs categories={CATEGORIES} selected={category} setSelected={setCategory} />
+      <CategoryTabs categories={allCategories} selected={category} setSelected={setCategory} />
       {showRecent && (
         <RecentSearches
           searches={recentSearches}

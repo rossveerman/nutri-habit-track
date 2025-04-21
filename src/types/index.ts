@@ -13,7 +13,7 @@ export interface Food {
   calcium: number;
   iron: number;
   vitaminC: number;
-  category: string;
+  category: FoodCategory;
   servingSize?: string;
   quantity?: number;
   mealType?: MealType;
@@ -21,6 +21,24 @@ export interface Food {
 }
 
 export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'snack';
+
+export type FoodCategory = 
+  | 'beverage'
+  | 'alcohol'
+  | 'fruit'
+  | 'vegetable'
+  | 'grain'
+  | 'legume'
+  | 'nut'
+  | 'dairy'
+  | 'protein'
+  | 'condiment'
+  | 'fat'
+  | 'oil'
+  | 'snack'
+  | 'sweet'
+  | 'mixed'
+  | 'other';
 
 export interface DayData {
   date: string;

@@ -1,6 +1,3 @@
-
-// Modified the categories list to match FoodCategory type literals (all lowercase).
-// Also updated the default and selection handling for category.
 import React, { useState } from 'react';
 import { Food, MealType, FoodCategory } from '@/types';
 import { 

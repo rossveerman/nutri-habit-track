@@ -1,7 +1,4 @@
-
-// Fixed categories values to use lowercase matching FoodCategory type literals
-// Also added missing fields to all Food entries as per TypeScript errors (fiber, sugars, sodium, serving etc.)
-import type { Food } from "@/types";
+import type { Food, FoodCategory } from "@/types";
 
 export const MOCK_FOOD_DATABASE: Food[] = [
   {
