@@ -4,15 +4,16 @@ import { FavouritesProvider } from './FavouritesContext';
 import FoodSearch from './FoodSearch';
 import FavouritesTab from './FavouritesTab';
 import MobileTabFooter from './MobileTabFooter';
+import ProfileSection from './ProfileSection';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
-  const [selectedTab, setSelectedTab] = useState<"search" | "favourites">("search");
+  const [selectedTab, setSelectedTab] = useState<"search" | "favourites" | "profile">("search");
 
-  // For mobile: show the NutrifAI header, current date, FoodSearch/FavouritesTab, and MobileTabFooter
+  // Only show mobile layout - no desktop logic
   return (
     <FavouritesProvider>
       <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -31,7 +32,9 @@ export function Layout({ children }: LayoutProps) {
           </div>
         </header>
         <main className="flex-1 mx-auto w-full p-4" style={{ maxWidth: 'min(100%, 540px)' }}>
-          {selectedTab === 'search' ? <FoodSearch /> : <FavouritesTab />}
+          {selectedTab === "search" && <FoodSearch />}
+          {selectedTab === "favourites" && <FavouritesTab />}
+          {selectedTab === "profile" && <ProfileSection />}
         </main>
         <MobileTabFooter selected={selectedTab} onSelect={setSelectedTab} />
       </div>

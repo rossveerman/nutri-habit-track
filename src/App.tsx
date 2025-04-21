@@ -31,7 +31,7 @@ const App = () => (
           <Route path="/auth" element={<AuthScreen />} />
           <Route path="/dashboard" element={<Index />} />
           <Route path="/add-food" element={<Layout><AddFood /></Layout>} />
-          <Route path="/profile" element={<Layout><Profile /></Layout>} />
+          <Route path="/profile" element={<Layout />} />
           <Route path="/food/:id" element={<FoodDetail />} />
           <Route path="/camera" element={<CameraPage />} />
           <Route path="*" element={<NotFound />} />

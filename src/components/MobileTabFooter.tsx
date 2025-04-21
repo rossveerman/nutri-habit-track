@@ -1,10 +1,10 @@
 
 import React from "react";
-import { Search, Heart } from "lucide-react";
+import { Search, Heart, UserRound } from "lucide-react";
 
 interface Props {
-  selected: "search" | "favourites";
-  onSelect: (tab: "search" | "favourites") => void;
+  selected: "search" | "favourites" | "profile";
+  onSelect: (tab: "search" | "favourites" | "profile") => void;
 }
 
 export default function MobileTabFooter({ selected, onSelect }: Props) {
@@ -24,6 +24,13 @@ export default function MobileTabFooter({ selected, onSelect }: Props) {
         >
           <Heart size={22} />
           <span className="text-xs mt-1">Favourites</span>
+        </button>
+        <button
+          className={`flex flex-col items-center p-2 ${selected === "profile" ? "text-nutritrack-teal" : "text-gray-400"}`}
+          onClick={() => onSelect("profile")}
+        >
+          <UserRound size={22} />
+          <span className="text-xs mt-1">Profile</span>
         </button>
       </nav>
     </footer>
