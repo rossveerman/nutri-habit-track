@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Food, MealType, FoodCategory } from '@/types';
 import { 
@@ -62,7 +63,7 @@ export function FoodEntryForm({ open, onClose, onAddFood, defaultValues }: FoodE
     servingSize: defaultValues?.servingSize || '',
     quantity: defaultValues?.quantity || 1,
     mealType: (defaultValues?.mealType || 'breakfast') as MealType,
-    category: defaultValues?.category || 'other'
+    category: (defaultValues?.category || 'other') as FoodCategory
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
