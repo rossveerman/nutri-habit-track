@@ -29,7 +29,7 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categories, selected, setSe
   };
 
   return (
-    <div className="flex gap-2 overflow-x-auto hide-scrollbar py-1">
+    <div className="flex gap-2 overflow-x-auto hide-scrollbar py-1 whitespace-nowrap touch-pan-x">
       {categories.map((cat) => (
         <button
           key={cat}
@@ -57,4 +57,3 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categories, selected, setSe
 };
 
 export default CategoryTabs;
-
